@@ -1,977 +1,543 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Rotina da Lice 💗</title>
+  <title>🌷 Minha Rotina 💗</title>
 
   <style>
+    :root {
+      --pink: #e879ad;
+      --dark: #be397d;
+      --light: #fff0f7;
+      --border: #f5c5dd;
+      --text: #543748;
+      --muted: #98798a;
+    }
+
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #fff0f7, #ffe0ee);
-      color: #4a3040;
-      min-height: 100vh;
-      padding: 25px;
+      margin: 0;
+      padding: 24px 14px 40px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #fff5fa, #fffafd);
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 760px;
       margin: auto;
     }
 
     header {
-      background: white;
-      border-radius: 25px;
-      padding: 30px;
       text-align: center;
-      box-shadow: 0 8px 25px rgba(190, 100, 140, 0.15);
-      margin-bottom: 25px;
+      padding: 28px 16px;
+      margin-bottom: 20px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 5px 18px #be397d12;
     }
 
     header h1 {
-      font-size: 34px;
-      color: #d85b91;
-      margin-bottom: 10px;
+      margin: 0 0 8px;
+      color: var(--dark);
+      font-size: clamp(27px, 5vw, 38px);
     }
 
     header p {
-      font-size: 17px;
-      color: #765467;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
     }
 
-    .goals {
+    .day-selector {
+      padding: 20px;
+      margin-bottom: 18px;
       background: white;
-      border-radius: 22px;
-      padding: 22px;
-      margin-bottom: 25px;
-      box-shadow: 0 8px 25px rgba(190, 100, 140, 0.12);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 5px 18px #be397d0c;
     }
 
-    .goals h2 {
-      color: #d85b91;
-      margin-bottom: 15px;
-    }
-
-    .goal-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .goal {
-      background: #fff3f8;
-      border-radius: 16px;
-      padding: 16px;
-      text-align: center;
-    }
-
-    .goal strong {
+    .day-selector label {
       display: block;
-      font-size: 18px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
+      color: var(--dark);
+      font-weight: 700;
     }
 
-    .buttons {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 20px 0;
-    }
-
-    button {
-      border: none;
-      background: #d85b91;
-      color: white;
-      padding: 11px 18px;
+    select {
+      width: 100%;
+      padding: 13px;
+      font: inherit;
+      color: var(--text);
+      background: #fff7fb;
+      border: 1px solid var(--border);
       border-radius: 12px;
+      outline-color: var(--pink);
       cursor: pointer;
-      font-weight: bold;
-      transition: 0.2s;
     }
 
-    button:hover {
-      transform: translateY(-2px);
-      background: #c7477e;
-    }
-
-    .week {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .day {
+    .day-card {
+      padding: 20px;
       background: white;
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: 0 8px 25px rgba(190, 100, 140, 0.12);
-      border: 2px solid transparent;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 5px 18px #be397d0c;
     }
 
-    .day.today {
-      border-color: #e879aa;
-      box-shadow: 0 8px 28px rgba(216, 91, 145, 0.25);
+    .day-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-bottom: 14px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #f8dfec;
     }
 
-    .day h2 {
-      color: #d85b91;
-      margin-bottom: 5px;
-      font-size: 23px;
+    .day-heading h2 {
+      margin: 0;
+      color: var(--dark);
+      font-size: 22px;
     }
 
-    .day-subtitle {
-      color: #9b7185;
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
-
-    .princess {
-      background: linear-gradient(135deg, #fff1f7, #ffe0ee);
-      border: 2px solid #f2a4c5;
+    .today-badge {
+      padding: 5px 9px;
+      color: var(--dark);
+      background: var(--light);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 750;
     }
 
     .task {
-      display: flex;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 19px minmax(0, 1fr);
       gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f5dce8;
+      padding: 11px 5px;
+      border-radius: 9px;
+      cursor: pointer;
+      line-height: 1.45;
     }
 
-    .task:last-child {
-      border-bottom: none;
+    .task:hover {
+      background: #fff5fa;
     }
 
     .task input {
-      width: 19px;
-      height: 19px;
-      accent-color: #d85b91;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      accent-color: var(--dark);
       cursor: pointer;
-      margin-top: 2px;
-      flex-shrink: 0;
     }
 
     .task-content {
-      flex: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
-    .time {
-      font-weight: bold;
-      color: #c55385;
-      font-size: 14px;
+    .task-time {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--dark);
+      font-size: 13px;
+      font-weight: 750;
     }
 
     .task-name {
-      font-size: 15px;
-      margin-top: 2px;
-    }
-
-    .task input:checked + .task-content .task-name {
-      text-decoration: line-through;
-      opacity: 0.5;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 10px 10px;
-      color: #9b7185;
+      display: block;
       font-size: 14px;
     }
 
-    @media (max-width: 750px) {
+    .task input:checked + .task-content .task-name {
+      color: #ad98a3;
+      text-decoration: line-through;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+      padding-top: 15px;
+      border-top: 1px solid #f8dfec;
+    }
+
+    button {
+      flex: 1;
+      min-width: 140px;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--light);
+      color: var(--dark);
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #fce0ee;
+    }
+
+    .progress {
+      margin-top: 16px;
+      padding: 12px 14px;
+      background: #fff6fb;
+      border-radius: 12px;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      background: #f6dce9;
+      border-radius: 20px;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--pink);
+      border-radius: 20px;
+      transition: width 0.2s ease;
+    }
+
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 480px) {
       body {
-        padding: 12px;
+        padding: 14px 10px 28px;
       }
 
-      header h1 {
-        font-size: 27px;
+      .day-card,
+      .day-selector {
+        padding: 15px;
       }
 
-      .goal-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .week {
-        grid-template-columns: 1fr;
-      }
-
-      .day {
-        padding: 18px;
+      .day-heading h2 {
+        font-size: 20px;
       }
     }
   </style>
 </head>
 
 <body>
+  <main class="container">
 
-<div class="container">
+    <header>
+      <h1>🌷 Minha Rotina 💗</h1>
+      <p>Uma semana organizada, com tempo para estudar e descansar.</p>
+    </header>
 
-  <header>
-    <h1>🌷 Minha Rotina 💗</h1>
-    <p>Um dia de cada vez, construindo a minha melhor versão. 💗</p>
-  </header>
+    <section class="day-selector">
+      <label for="day-select">📅 Escolha o dia da semana</label>
+      <select id="day-select">
+        <option value="0">Segunda-feira</option>
+        <option value="1">Terça-feira</option>
+        <option value="2">Quarta-feira</option>
+        <option value="3">Quinta-feira</option>
+        <option value="4">Sexta-feira</option>
+        <option value="5">Sábado</option>
+        <option value="6">Domingo</option>
+      </select>
+    </section>
 
-  <section class="goals">
-    <h2>🎯 Metas dos cursos</h2>
-
-    <div class="goal-grid">
-      <div class="goal">
-        <strong>💻 TI</strong>
-        2h por semana
+    <section class="day-card">
+      <div class="day-heading">
+        <h2 id="day-title">Segunda-feira 💕</h2>
+        <span id="today-badge" class="today-badge" hidden>HOJE 💗</span>
       </div>
 
-      <div class="goal">
-        <strong>🇺🇸 Inglês</strong>
-        1h por semana
+      <div id="tasks"></div>
+
+      <div class="progress">
+        <div class="progress-text">
+          <span>💗 Progresso do dia</span>
+          <span id="progress-count">0 de 0 tarefas</span>
+        </div>
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
       </div>
 
-      <div class="goal">
-        <strong>🤖 IBM</strong>
-        1h por semana
+      <div class="actions">
+        <button id="mark-all">🌸 Marcar todas</button>
+        <button id="unmark-all">♡ Desmarcar todas</button>
       </div>
-    </div>
-  </section>
-
-  <div class="buttons">
-    <button onclick="marcarTodos()">☑️ Marcar todos</button>
-    <button onclick="desmarcarTodos()">⬜ Desmarcar todos</button>
-  </div>
-
-  <main class="week">
-
-    <!-- SEGUNDA -->
-    <section class="day" data-day="segunda">
-      <h2>💗 Segunda-feira</h2>
-      <div class="day-subtitle">Escola + bilíngue + vôlei</div>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">05:00</div>
-          <div class="task-name">Acordar</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">05:00–06:30</div>
-          <div class="task-name">Se arrumar + café da manhã</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Antes de sair</div>
-          <div class="task-name">Limpar pia + cuidar dos gatos + conferir mochila</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">06:30</div>
-          <div class="task-name">Sair de casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">07:10–13:00</div>
-          <div class="task-name">🏫 Escola + bilíngue</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">13:30</div>
-          <div class="task-name">🍽️ Almoço</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">14:00–15:00</div>
-          <div class="task-name">🧹 Limpar a casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">15:00–15:30</div>
-          <div class="task-name">💻 TI</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Depois</div>
-          <div class="task-name">🏐 Vôlei</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Depois do vôlei — 20 min</div>
-          <div class="task-name">🚿 Banho</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Noite</div>
-          <div class="task-name">🍽️ Jantar + organizar mochila + separar roupa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">21:00</div>
-          <div class="task-name">😴 Dormir</div>
-        </div>
-      </label>
     </section>
 
-
-    <!-- TERÇA -->
-    <section class="day" data-day="terca">
-      <h2>🌸 Terça-feira</h2>
-      <div class="day-subtitle">Limpeza + TI + caminhada</div>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">05:00</div>
-          <div class="task-name">Acordar</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">05:00–06:30</div>
-          <div class="task-name">Se arrumar + café da manhã + cuidar dos gatos</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">06:30</div>
-          <div class="task-name">Sair de casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">07:10–12:30</div>
-          <div class="task-name">🏫 Escola</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Depois da escola</div>
-          <div class="task-name">🍽️ Almoço</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">14:00–15:00</div>
-          <div class="task-name">🧹 Limpar a casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">15:00–15:30</div>
-          <div class="task-name">💻 TI</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">15:30–16:30</div>
-          <div class="task-name">🚶‍♀️ Caminhada</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">16:30–16:50</div>
-          <div class="task-name">🚿 Banho</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Noite</div>
-          <div class="task-name">📚 Estudos/tempo livre + jantar + mochila</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">21:00</div>
-          <div class="task-name">😴 Dormir</div>
-        </div>
-      </label>
-    </section>
-
-
-    <!-- QUARTA -->
-    <section class="day" data-day="quarta">
-      <h2>🌷 Quarta-feira</h2>
-      <div class="day-subtitle">Limpeza + TI + caminhada</div>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">05:00</div>
-          <div class="task-name">Acordar</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">05:00–06:30</div>
-          <div class="task-name">Se arrumar + café da manhã + cuidar dos gatos</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">06:30</div>
-          <div class="task-name">Sair de casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">07:10–12:30</div>
-          <div class="task-name">🏫 Escola</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Depois da escola</div>
-          <div class="task-name">🍽️ Almoço</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">14:00–15:00</div>
-          <div class="task-name">🧹 Limpar a casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">15:00–16:00</div>
-          <div class="task-name">💻 TI</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">16:00–17:00</div>
-          <div class="task-name">🚶‍♀️ Caminhada</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">17:00–17:20</div>
-          <div class="task-name">🚿 Banho</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Noite</div>
-          <div class="task-name">📚 Estudos/tempo livre + jantar + mochila</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">21:00</div>
-          <div class="task-name">😴 Dormir</div>
-        </div>
-      </label>
-    </section>
-
-
-    <!-- QUINTA -->
-    <section class="day" data-day="quinta">
-      <h2>🌼 Quinta-feira</h2>
-      <div class="day-subtitle">Robótica + Inglês + caminhada</div>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">05:00</div>
-          <div class="task-name">Acordar</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">05:00–06:30</div>
-          <div class="task-name">Se arrumar + café da manhã + cuidar dos gatos</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">06:30</div>
-          <div class="task-name">Sair de casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">07:10–13:30</div>
-          <div class="task-name">🏫 Escola + robótica</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Depois da escola</div>
-          <div class="task-name">🍽️ Almoço</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">14:00–15:00</div>
-          <div class="task-name">🧹 Limpar a casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">15:00–15:30</div>
-          <div class="task-name">🇺🇸 Inglês</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">15:30–16:30</div>
-          <div class="task-name">🚶‍♀️ Caminhada</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">16:30–16:50</div>
-          <div class="task-name">🚿 Banho</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Noite</div>
-          <div class="task-name">📚 Estudos/tempo livre + jantar + mochila</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">21:00</div>
-          <div class="task-name">😴 Dormir</div>
-        </div>
-      </label>
-    </section>
-
-
-    <!-- SEXTA -->
-    <section class="day princess" data-day="sexta">
-      <h2>👑 Sexta-feira</h2>
-      <div class="day-subtitle">✨ DIA DE PRINCESA ✨</div>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">05:00</div>
-          <div class="task-name">Acordar</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">05:00–06:30</div>
-          <div class="task-name">Se arrumar + café da manhã + cuidar dos gatos</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">06:30</div>
-          <div class="task-name">Sair de casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">07:10–12:30</div>
-          <div class="task-name">🏫 Escola</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Depois da escola</div>
-          <div class="task-name">🍽️ Almoço</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">14:00–15:00</div>
-          <div class="task-name">🧹 Faxina</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">15:00–15:30</div>
-          <div class="task-name">🇺🇸 Inglês</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">15:30–15:50</div>
-          <div class="task-name">🚿 Banho</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">15:50–16:20</div>
-          <div class="task-name">👕 Dobrar e guardar roupas</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">16:20–17:00</div>
-          <div class="task-name">💅 Fazer as unhas</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">17:00–17:30</div>
-          <div class="task-name">🪒 Depilação</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">17:30–18:15</div>
-          <div class="task-name">💇‍♀️ Cabelo</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">18:15–18:45</div>
-          <div class="task-name">👗 Se arrumar</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">18:45–19:30</div>
-          <div class="task-name">🍽️ Jantar</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">19:30–20:30</div>
-          <div class="task-name">🌙 Organização final + desacelerar</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">21:00</div>
-          <div class="task-name">😴 Dormir</div>
-        </div>
-      </label>
-    </section>
-
-
-    <!-- SÁBADO -->
-    <section class="day" data-day="sabado">
-      <h2>🏕️ Sábado</h2>
-      <div class="day-subtitle">Escoteiro + IBM + descanso</div>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Manhã</div>
-          <div class="task-name">🌅 Acordar + café da manhã</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Durante o dia</div>
-          <div class="task-name">🏕️ Escoteiro</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">30 min</div>
-          <div class="task-name">🤖 IBM</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Opcional</div>
-          <div class="task-name">🇺🇸 Vocabulário de inglês</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Se necessário — máximo 1h</div>
-          <div class="task-name">🧹 Tarefas da casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Livre</div>
-          <div class="task-name">🎮 Descanso / tempo livre</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Noite</div>
-          <div class="task-name">🌙 Rotina da noite</div>
-        </div>
-      </label>
-    </section>
-
-
-    <!-- DOMINGO -->
-    <section class="day" data-day="domingo">
-      <h2>🌸 Domingo</h2>
-      <div class="day-subtitle">Descanso + organização da semana</div>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Manhã</div>
-          <div class="task-name">🌅 Acordar + café da manhã</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">30 min</div>
-          <div class="task-name">🤖 IBM</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Durante o dia</div>
-          <div class="task-name">🎒 Organizar mochila</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Durante o dia</div>
-          <div class="task-name">👕 Separar roupas da semana</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Durante o dia</div>
-          <div class="task-name">📅 Organizar a semana</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Se necessário — máximo 1h</div>
-          <div class="task-name">🧹 Tarefas da casa</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Livre</div>
-          <div class="task-name">🧘‍♀️ Descanso</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">Noite</div>
-          <div class="task-name">🌙 Preparar tudo para segunda</div>
-        </div>
-      </label>
-
-      <label class="task">
-        <input type="checkbox">
-        <div class="task-content">
-          <div class="time">21:00</div>
-          <div class="task-name">😴 Dormir</div>
-        </div>
-      </label>
-    </section>
+    <footer>
+      Feito com carinho 🌷<br>
+      Descansar também faz parte da rotina. 💕
+    </footer>
 
   </main>
 
-  <footer>
-    Feito com 💗 para organizar minha semana.
-  </footer>
+  <script>
+    const routine = [
+      {
+        day: "Segunda-feira",
+        tasks: [
+          ["05:00–05:15", "🛁 Tomar banho"],
+          ["05:15–06:10", "🥣 Café da manhã e se arrumar"],
+          ["06:10–06:30", "🧘 Meditação contra a ansiedade"],
+          ["06:30", "🚌 Sair para pegar o ônibus das 06:34 na Prefeitura"],
+          ["07:10–13:00", "🏫 Escola — bilíngue"],
+          ["13:20–15:00", "🍽️ Almoçar e fazer tarefas domésticas"],
+          ["15:00–15:40", "🎒 Preparar as coisas e sair para o ônibus"],
+          ["16:10–18:00", "📚 Estudar no clube"],
+          ["18:00–20:00", "🏐 Vôlei no SSPMS"],
+          ["20:20–20:25", "🏠 Chegar em casa"],
+          ["20:25–20:40", "🍽️ Jantar"],
+          ["20:40–20:45", "🛁 Banho após o vôlei"],
+          ["20:45–21:00", "🌙 Desacelerar e se preparar para dormir"],
+          ["21:00", "😴 Dormir"]
+        ]
+      },
+      {
+        day: "Terça-feira",
+        tasks: [
+          ["05:00–05:15", "🛁 Tomar banho"],
+          ["05:15–06:10", "🥣 Café da manhã e se arrumar"],
+          ["06:10–06:30", "🧘 Meditação contra a ansiedade"],
+          ["06:30", "🚌 Sair para pegar o ônibus das 06:34 na Prefeitura"],
+          ["07:10–12:30", "🏫 Escola"],
+          ["12:30–15:00", "🏠 Chegar em casa, almoçar e descansar"],
+          ["15:00–17:00", "🚶‍♀️🏋️ Caminhada até o SSPMS + academia"],
+          ["17:00–20:00", "📚🍽️ Estudar e jantar"],
+          ["20:00–21:00", "🌙 Desacelerar: ler mangá e beber chá"],
+          ["21:00", "😴 Dormir"]
+        ]
+      },
+      {
+        day: "Quarta-feira",
+        tasks: [
+          ["05:00–05:15", "🛁 Tomar banho"],
+          ["05:15–06:10", "🥣 Café da manhã e se arrumar"],
+          ["06:10–06:30", "🧘 Meditação contra a ansiedade"],
+          ["06:30", "🚌 Sair para pegar o ônibus das 06:34 na Prefeitura"],
+          ["07:10–12:30", "🏫 Escola"],
+          ["12:30–15:00", "🏠 Chegar em casa, almoçar e descansar"],
+          ["15:00–17:00", "🚶‍♀️🏋️ Caminhada até o SSPMS + academia"],
+          ["17:00–20:00", "📚🍽️ Estudar e jantar — prioridade: Matemática"],
+          ["20:00–21:00", "🌙 Desacelerar: ler mangá e beber chá"],
+          ["21:00", "😴 Dormir"]
+        ]
+      },
+      {
+        day: "Quinta-feira",
+        tasks: [
+          ["05:00–05:15", "🛁 Tomar banho"],
+          ["05:15–06:10", "🥣 Café da manhã e se arrumar"],
+          ["06:10–06:30", "🧘 Meditação contra a ansiedade"],
+          ["06:30", "🚌 Sair para pegar o ônibus das 06:34 na Prefeitura"],
+          ["07:10–13:00", "🏫 Escola — conferir o horário quando houver robótica"],
+          ["13:00–15:00", "🏠 Chegar em casa, almoçar e descansar"],
+          ["15:00–16:00", "🧹 Tarefas domésticas"],
+          ["16:00–18:00", "🌸 Descanso e tempo livre"],
+          ["18:00–18:30", "🍽️ Jantar"],
+          ["18:30–20:00", "📚 Estudar, se necessário"],
+          ["20:00–21:00", "🌙 Desacelerar: ler mangá e beber chá"],
+          ["21:00", "😴 Dormir"]
+        ]
+      },
+      {
+        day: "Sexta-feira",
+        tasks: [
+          ["05:00–05:15", "🛁 Tomar banho"],
+          ["05:15–06:10", "🥣 Café da manhã e se arrumar"],
+          ["06:10–06:30", "🧘 Meditação contra a ansiedade"],
+          ["06:30", "🚌 Sair para pegar o ônibus das 06:34 na Prefeitura"],
+          ["07:10–12:30", "🏫 Escola"],
+          ["12:30–15:00", "🏠 Chegar em casa, almoçar e descansar"],
+          ["15:00–17:00", "🚶‍♀️🏋️ Caminhada até o SSPMS + academia"],
+          ["17:00–20:00", "📚🍽️ Estudar e jantar"],
+          ["20:00–21:00", "🌙 Desacelerar: ler mangá e beber chá"],
+          ["21:00", "😴 Dormir"]
+        ]
+      },
+      {
+        day: "Sábado",
+        tasks: [
+          ["07:00–07:15", "🛁 Tomar banho"],
+          ["07:15–08:00", "🥣 Café da manhã"],
+          ["08:00–09:00", "🧹 Organizar a casa"],
+          ["09:00–10:00", "📚 Estudar, se necessário"],
+          ["10:00–12:00", "🎨 Tempo livre"],
+          ["12:00–13:00", "🍽️ Almoço"],
+          ["13:00–15:00", "💗 Descanso e lazer"],
+          ["15:00–17:00", "🌷 Tempo livre"],
+          ["17:00–18:00", "🗓️ Organizar as coisas para a semana"],
+          ["18:00–18:30", "🍽️ Jantar"],
+          ["18:30–20:00", "💗 Lazer e descanso"],
+          ["20:00–21:30", "🌙 Desacelerar: ler mangá e beber chá"],
+          ["21:30", "😴 Dormir"]
+        ]
+      },
+      {
+        day: "Domingo",
+        tasks: [
+          ["07:00–07:15", "🛁 Tomar banho"],
+          ["07:15–08:00", "🥣 Café da manhã"],
+          ["08:00–09:00", "🗓️ Organizar a semana"],
+          ["09:00–11:00", "📚 Estudar e revisar conteúdos"],
+          ["11:00–12:00", "💗 Tempo livre"],
+          ["12:00–13:00", "🍽️ Almoço"],
+          ["13:00–15:00", "🛋️ Descansar"],
+          ["15:00–16:00", "🎒 Preparar mochila e uniforme"],
+          ["16:00–18:00", "🌸 Tempo livre"],
+          ["18:00–18:30", "🍽️ Jantar"],
+          ["18:30–20:00", "📚 Revisar, se necessário"],
+          ["20:00–21:00", "🌙 Desacelerar: ler mangá e beber chá"],
+          ["21:00", "😴 Dormir"]
+        ]
+      }
+    ];
 
-</div>
+    // A semana começa na segunda-feira.
+    function getWeekKey(date = new Date()) {
+      const d = new Date(Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+      ));
 
-<script>
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const weekday = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - weekday);
 
-  checkboxes.forEach((checkbox, index) => {
-    const saved = localStorage.getItem(`rotina-checkbox-${index}`);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      const week = Math.ceil(
+        (((d - yearStart) / 86400000) + 1) / 7
+      );
 
-    if (saved === "true") {
-      checkbox.checked = true;
+      return `${d.getUTCFullYear()}-W${week}`;
     }
 
-    checkbox.addEventListener("change", () => {
-      localStorage.setItem(
-        `rotina-checkbox-${index}`,
-        checkbox.checked
-      );
+    const storageKey = `rotina-checkbox-${getWeekKey()}`;
+    const todayIndex = (new Date().getDay() + 6) % 7;
+    const daySelect = document.getElementById("day-select");
+    const tasksContainer = document.getElementById("tasks");
+    const dayTitle = document.getElementById("day-title");
+    const todayBadge = document.getElementById("today-badge");
+    const progressCount = document.getElementById("progress-count");
+    const progressFill = document.getElementById("progress-fill");
+
+    let completed = {};
+
+    try {
+      completed = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    } catch {
+      completed = {};
+    }
+
+    function save() {
+      localStorage.setItem(storageKey, JSON.stringify(completed));
+    }
+
+    function renderDay() {
+      const dayIndex = Number(daySelect.value);
+      const day = routine[dayIndex];
+
+      dayTitle.textContent = `${day.day} 💕`;
+      todayBadge.hidden = dayIndex !== todayIndex;
+      tasksContainer.innerHTML = "";
+
+      day.tasks.forEach((task, taskIndex) => {
+        const id = `${dayIndex}-${taskIndex}`;
+
+        const label = document.createElement("label");
+        label.className = "task";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = Boolean(completed[id]);
+
+        const content = document.createElement("span");
+        content.className = "task-content";
+
+        const time = document.createElement("span");
+        time.className = "task-time";
+        time.textContent = task[0];
+
+        const name = document.createElement("span");
+        name.className = "task-name";
+        name.textContent = task[1];
+
+        content.append(time, name);
+        label.append(checkbox, content);
+        tasksContainer.appendChild(label);
+
+        checkbox.addEventListener("change", () => {
+          completed[id] = checkbox.checked;
+          save();
+          updateProgress();
+        });
+      });
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const dayIndex = Number(daySelect.value);
+      const total = routine[dayIndex].tasks.length;
+
+      const done = routine[dayIndex].tasks.reduce((count, _, i) => {
+        return count + (completed[`${dayIndex}-${i}`] ? 1 : 0);
+      }, 0);
+
+      progressCount.textContent = `${done} de ${total} tarefas`;
+      progressFill.style.width = `${total ? (done / total) * 100 : 0}%`;
+    }
+
+    document.getElementById("mark-all").addEventListener("click", () => {
+      const dayIndex = Number(daySelect.value);
+
+      routine[dayIndex].tasks.forEach((_, i) => {
+        completed[`${dayIndex}-${i}`] = true;
+      });
+
+      save();
+      renderDay();
     });
-  });
 
-  function marcarTodos() {
-    checkboxes.forEach((checkbox, index) => {
-      checkbox.checked = true;
-      localStorage.setItem(`rotina-checkbox-${index}`, "true");
+    document.getElementById("unmark-all").addEventListener("click", () => {
+      const dayIndex = Number(daySelect.value);
+
+      routine[dayIndex].tasks.forEach((_, i) => {
+        completed[`${dayIndex}-${i}`] = false;
+      });
+
+      save();
+      renderDay();
     });
-  }
 
-  function desmarcarTodos() {
-    checkboxes.forEach((checkbox, index) => {
-      checkbox.checked = false;
-      localStorage.setItem(`rotina-checkbox-${index}`, "false");
-    });
-  }
+    daySelect.addEventListener("change", renderDay);
 
-  // Destaca o dia atual
-  const hoje = new Date().getDay();
-
-  const dias = {
-    0: "domingo",
-    1: "segunda",
-    2: "terca",
-    3: "quarta",
-    4: "quinta",
-    5: "sexta",
-    6: "sabado"
-  };
-
-  const diaAtual = document.querySelector(
-    `[data-day="${dias[hoje]}"]`
-  );
-
-  if (diaAtual) {
-    diaAtual.classList.add("today");
-  }
-</script>
-
+    // Abre automaticamente no dia atual.
+    daySelect.value = String(todayIndex);
+    renderDay();
+  </script>
 </body>
 </html>
