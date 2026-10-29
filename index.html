@@ -4,18 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#fff0f7">
-  <title>🌷 Minha Rotina 💗</title>
+  <title>Rotina da Lice 💗</title>
 
   <style>
     :root {
-      --pink: #e879ad;
-      --dark: #be397d;
-      --light: #fff0f7;
-      --border: #f5c5dd;
-      --text: #543748;
-      --muted: #98798a;
+      --pink: #e879a9;
+      --pink-dark: #c94f86;
+      --pink-light: #fff0f6;
+      --pink-border: #f5c5da;
+      --text: #593747;
       --white: #ffffff;
+      --green: #78b99a;
     }
 
     * {
@@ -24,229 +23,216 @@
 
     body {
       margin: 0;
-      padding: 24px 14px 40px;
-      font-family: "Segoe UI", Arial, sans-serif;
+      padding: 20px 14px 40px;
+      background: linear-gradient(180deg, #fff4f8, #fffafd);
       color: var(--text);
-      background: linear-gradient(180deg, #fff5fa, #fffafd);
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     .container {
-      max-width: 760px;
-      margin: auto;
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
     }
 
     header {
       text-align: center;
-      padding: 28px 16px;
-      margin-bottom: 20px;
+      padding: 22px 14px;
       background: var(--white);
-      border: 1px solid var(--border);
+      border: 2px solid var(--pink-border);
       border-radius: 24px;
-      box-shadow: 0 5px 18px #be397d12;
+      box-shadow: 0 5px 18px #d78bac1c;
+      margin-bottom: 20px;
     }
 
-    header h1 {
-      margin: 0 0 8px;
-      color: var(--dark);
-      font-size: clamp(27px, 5vw, 38px);
+    h1 {
+      color: var(--pink-dark);
+      font-size: clamp(25px, 6vw, 34px);
+      margin: 0 0 10px;
     }
 
     header p {
       margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.5;
+      color: #93677b;
     }
 
-    .day-selector,
-    .day-card {
+    .panel {
       background: var(--white);
-      border: 1px solid var(--border);
+      border: 1px solid var(--pink-border);
       border-radius: 20px;
-      box-shadow: 0 5px 18px #be397d0c;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px #d78bac12;
     }
 
-    .day-selector {
-      padding: 20px;
-      margin-bottom: 18px;
-    }
-
-    .day-selector label {
+    label {
       display: block;
-      margin-bottom: 10px;
-      color: var(--dark);
-      font-weight: 700;
+      margin-bottom: 9px;
+      font-weight: bold;
+      color: var(--pink-dark);
     }
 
     select {
       width: 100%;
       padding: 13px;
-      font: inherit;
-      color: var(--text);
-      background: #fff7fb;
-      border: 1px solid var(--border);
+      border: 1px solid var(--pink-border);
       border-radius: 12px;
+      background: #fff8fb;
+      color: var(--text);
+      font-size: 16px;
       outline-color: var(--pink);
-      cursor: pointer;
     }
 
-    .day-card {
-      padding: 20px;
-    }
-
-    .day-heading {
+    .progress-info {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding-bottom: 14px;
-      margin-bottom: 8px;
-      border-bottom: 1px solid #f8dfec;
-    }
-
-    .day-heading h2 {
-      margin: 0;
-      color: var(--dark);
-      font-size: 22px;
-    }
-
-    .today-badge {
-      padding: 5px 9px;
-      color: var(--dark);
-      background: var(--light);
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 750;
-    }
-
-    .task {
-      display: grid;
-      grid-template-columns: 19px minmax(0, 1fr);
+      align-items: center;
       gap: 10px;
-      padding: 11px 5px;
-      border-radius: 9px;
-      cursor: pointer;
-      line-height: 1.45;
-    }
-
-    .task:hover {
-      background: #fff5fa;
-    }
-
-    .task input {
-      width: 17px;
-      height: 17px;
-      margin: 3px 0 0;
-      accent-color: var(--dark);
-      cursor: pointer;
-    }
-
-    .task-content {
-      min-width: 0;
-      overflow-wrap: anywhere;
-    }
-
-    .task-time {
-      display: block;
-      margin-bottom: 2px;
-      color: var(--dark);
-      font-size: 13px;
-      font-weight: 750;
-    }
-
-    .task-name {
-      display: block;
+      margin-bottom: 10px;
       font-size: 14px;
     }
 
-    .task input:checked + .task-content .task-name {
-      color: #ad98a3;
-      text-decoration: line-through;
+    .progress-track {
+      width: 100%;
+      height: 12px;
+      background: #fbe3ee;
+      border-radius: 20px;
+      overflow: hidden;
     }
 
-    .actions {
+    #progressBar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #f4a6c8, #d9659c);
+      border-radius: 20px;
+      transition: width 0.25s ease;
+    }
+
+    .buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 9px;
       margin-top: 16px;
-      padding-top: 15px;
-      border-top: 1px solid #f8dfec;
     }
 
     button {
       flex: 1;
-      min-width: 140px;
-      padding: 11px 14px;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      background: var(--light);
-      color: var(--dark);
-      font-weight: 650;
-      cursor: pointer;
+      min-width: 135px;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: var(--pink);
+      color: white;
       font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     button:hover {
-      background: #fce0ee;
+      background: var(--pink-dark);
     }
 
-    button:focus-visible,
-    select:focus-visible {
-      outline: 2px solid var(--dark);
-      outline-offset: 3px;
+    button.secondary {
+      background: #fbe5ef;
+      color: var(--pink-dark);
     }
 
-    .progress {
-      margin-top: 16px;
-      padding: 12px 14px;
-      background: #fff6fb;
-      border-radius: 12px;
+    button.secondary:hover {
+      background: #f6d2e2;
     }
 
-    .progress-text {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
+    #dayTitle {
+      margin: 4px 0 16px;
+      color: var(--pink-dark);
+      font-size: 23px;
+    }
+
+    .task-group {
+      margin-bottom: 20px;
+    }
+
+    .task-group h3 {
+      color: #bd648b;
+      font-size: 16px;
+      border-bottom: 1px solid #f7d9e6;
+      padding-bottom: 8px;
       margin-bottom: 8px;
-      color: var(--muted);
-      font-size: 12px;
     }
 
-    .progress-track {
-      height: 8px;
-      overflow: hidden;
-      background: #f6dce9;
-      border-radius: 20px;
+    .task {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 11px 8px;
+      border-radius: 10px;
+      line-height: 1.45;
+      cursor: pointer;
     }
 
-    .progress-fill {
-      width: 0;
-      height: 100%;
-      background: var(--pink);
-      border-radius: 20px;
-      transition: width 0.2s ease;
+    .task:hover {
+      background: #fff6fa;
+    }
+
+    .task input {
+      flex-shrink: 0;
+      width: 19px;
+      height: 19px;
+      margin: 1px 0 0;
+      accent-color: var(--pink-dark);
+      cursor: pointer;
+    }
+
+    .task-text {
+      flex: 1;
+      overflow-wrap: anywhere;
+    }
+
+    .task-time {
+      color: #a7798e;
+      font-size: 13px;
+      display: inline-block;
+      min-width: 105px;
+    }
+
+    .task.done .task-text {
+      text-decoration: line-through;
+      color: #ad9ba4;
+    }
+
+    .task.done {
+      background: #fff8fb;
+    }
+
+    .note {
+      background: var(--pink-light);
+      border-radius: 13px;
+      padding: 13px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #86536c;
     }
 
     footer {
-      margin-top: 24px;
       text-align: center;
-      color: var(--muted);
+      padding: 12px;
+      color: #a7798e;
       font-size: 13px;
-      line-height: 1.7;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 420px) {
       body {
-        padding: 14px 10px 28px;
+        padding: 12px 9px 28px;
       }
 
-      .day-card,
-      .day-selector {
-        padding: 15px;
+      .panel {
+        padding: 14px;
       }
 
-      .day-heading h2 {
-        font-size: 20px;
+      .task-time {
+        min-width: 0;
+        display: block;
+        margin-bottom: 3px;
       }
     }
   </style>
@@ -254,363 +240,538 @@
 
 <body>
   <main class="container">
-
     <header>
       <h1>🌷 Minha Rotina 💗</h1>
-      <p>Uma semana organizada, com tempo para estudar, dançar e descansar.</p>
+      <p>Um dia de cada vez, construindo a minha melhor versão. 💗</p>
     </header>
 
-    <section class="day-selector">
-      <label for="day-select">📅 Escolha o dia da semana</label>
-      <select id="day-select">
-        <option value="0">Segunda-feira</option>
-        <option value="1">Terça-feira</option>
-        <option value="2">Quarta-feira</option>
-        <option value="3">Quinta-feira</option>
-        <option value="4">Sexta-feira</option>
-        <option value="5">Sábado</option>
-        <option value="6">Domingo</option>
+    <section class="panel">
+      <label for="daySelect">🌸 Escolha o dia da sua rotina</label>
+      <select id="daySelect">
+        <option value="segunda">Segunda-feira</option>
+        <option value="terca">Terça-feira</option>
+        <option value="quarta">Quarta-feira</option>
+        <option value="quinta">Quinta-feira</option>
+        <option value="sexta">Sexta-feira</option>
+        <option value="sabado">Sábado</option>
+        <option value="domingo">Domingo</option>
       </select>
     </section>
 
-    <section class="day-card">
-      <div class="day-heading">
-        <h2 id="day-title">Segunda-feira 💕</h2>
-        <span id="today-badge" class="today-badge" hidden>
-          HOJE 💗
-        </span>
+    <section class="panel">
+      <div class="progress-info">
+        <strong>💗 Progresso do dia</strong>
+        <span id="progressText">0 de 0 tarefas</span>
       </div>
 
-      <div id="tasks"></div>
-
-      <div class="progress">
-        <div class="progress-text">
-          <span>💗 Progresso do dia</span>
-          <span id="progress-count">0 de 0 tarefas</span>
-        </div>
-        <div
-          class="progress-track"
-          role="progressbar"
-          aria-label="Progresso das tarefas"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          aria-valuenow="0"
-          id="progress-track"
-        >
-          <div id="progress-fill" class="progress-fill"></div>
-        </div>
+      <div
+        class="progress-track"
+        role="progressbar"
+        aria-label="Progresso das tarefas"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        id="progressTrack"
+      >
+        <div id="progressBar"></div>
       </div>
 
-      <div class="actions">
-        <button type="button" id="mark-all">🌸 Marcar todas</button>
-        <button type="button" id="unmark-all">♡ Desmarcar todas</button>
+      <div class="buttons">
+        <button type="button" id="markAll">Marcar todas ✓</button>
+        <button type="button" class="secondary" id="unmarkAll">
+          Desmarcar todas
+        </button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 id="dayTitle">Segunda-feira 💗</h2>
+      <div id="taskList"></div>
+    </section>
+
+    <section class="panel">
+      <div class="note">
+        🌷 <strong>Lembretes carinhosos:</strong><br>
+        ☔ Se chover, adapte ou cancele a caminhada.<br>
+        📚 Priorize as tarefas escolares e a preparação para a ETEC.<br>
+        💃 Quarta-feira é dia de dança, sem caminhada.<br>
+        💗 Não precisa fazer tudo perfeitamente. Consistência vale mais que perfeição!
       </div>
     </section>
 
     <footer>
-      Feito com carinho 🌷<br>
-      Descansar também faz parte da rotina. 💕
+      Feito com carinho para você 💗 Um passo de cada vez!
     </footer>
-
   </main>
 
   <script>
-    const routine = [
-      {
-        day: "Segunda-feira",
-        tasks: [
-          ["05:00", "🌅 Acordar"],
-          ["05:00–05:10", "🧽 Arrumar a pia"],
-          ["05:10–05:20", "🛏️ Arrumar o quarto"],
-          ["05:20–05:30", "🐱 Limpar o cocô dos gatos"],
-          ["05:30–05:40", "🎒 Organizar a mochila"],
-          ["05:40–05:55", "🥣 Tomar café da manhã"],
-          ["05:55–06:25", "🪞 Se arrumar para a escola"],
-          ["06:30", "🚌 Sair de casa"],
-          ["07:10–13:00", "🏫 Escola + bilíngue"],
-          ["13:00–13:30", "🏠 Voltar para casa"],
-          ["13:30–14:00", "🍽️ Almoçar"],
-          ["14:00–14:30", "🧹 Arrumar a casa"],
-          ["14:30–15:00", "🛋️ Descansar e preparar as coisas"],
-          ["15:00–15:30", "🎒 Preparar-se para sair"],
-          ["15:30–17:00", "🚶‍♀️💃 Caminhar até a Prefeitura, ensaiar dança e voltar"],
-          ["17:00–18:30", "📚 Estudar para a escola e a ETEC"],
-          ["18:30–19:00", "🍽️ Jantar"],
-          ["19:00–20:00", "📖 Tarefas escolares ou revisão, se necessário"],
-          ["20:00–20:40", "🌷 Tempo livre e higiene"],
-          ["20:40–21:00", "🌙 Preparar-se para dormir"],
-          ["21:00", "😴 Dormir"]
+    const routine = {
+      segunda: {
+        title: "Segunda-feira 🌷",
+        groups: [
+          {
+            title: "🌅 Rotina da manhã",
+            tasks: [
+              ["05:00", "Acordar"],
+              ["05:00–05:10", "Arrumar a pia"],
+              ["05:10–05:20", "Arrumar o quarto"],
+              ["05:20–05:30", "Limpar a sujeira dos gatos"],
+              ["05:30–05:40", "Organizar a mochila"],
+              ["05:40–05:55", "Tomar café da manhã"],
+              ["05:55–06:25", "Higiene pessoal e se arrumar"],
+              ["06:30", "Sair para a escola"]
+            ]
+          },
+          {
+            title: "🏫 Escola",
+            tasks: [
+              ["07:10–13:00", "Escola + bilíngue"]
+            ]
+          },
+          {
+            title: "🏡 Tarde em casa",
+            tasks: [
+              ["13:00–13:40", "Chegar em casa e almoçar"],
+              ["13:40–14:15", "Descansar depois do almoço"],
+              ["14:15–15:30", "Limpar e organizar a casa"],
+              ["15:30–16:00", "Trocar de roupa e se preparar para sair"],
+              ["16:00–17:00", "Caminhada e ensaio de dança na Prefeitura"]
+            ]
+          },
+          {
+            title: "📚 Estudos e noite",
+            tasks: [
+              ["17:00–17:30", "Voltar para casa e descansar"],
+              ["17:30–18:30", "Estudar para a escola e para a ETEC"],
+              ["18:30–19:00", "Jantar"],
+              ["19:00–20:00", "Fazer tarefas ou revisar conteúdos, se necessário"],
+              ["20:00–20:40", "Higiene, mochila e roupa do dia seguinte"],
+              ["20:40–21:00", "Relaxar e se preparar para dormir"],
+              ["21:00", "Dormir"]
+            ]
+          }
         ]
       },
-      {
-        day: "Terça-feira",
-        tasks: [
-          ["05:00", "🌅 Acordar"],
-          ["05:00–05:10", "🧽 Arrumar a pia"],
-          ["05:10–05:20", "🛏️ Arrumar o quarto"],
-          ["05:20–05:30", "🐱 Limpar o cocô dos gatos"],
-          ["05:30–05:40", "🎒 Organizar a mochila"],
-          ["05:40–05:55", "🥣 Tomar café da manhã"],
-          ["05:55–06:25", "🪞 Se arrumar para a escola"],
-          ["06:30", "🚌 Sair de casa"],
-          ["07:10–12:30", "🏫 Escola"],
-          ["12:30–13:15", "🏠 Voltar para casa e almoçar"],
-          ["13:15–14:00", "🛋️ Descansar"],
-          ["14:00–15:00", "📚 Estudar para a escola e a ETEC"],
-          ["15:00–15:30", "🎒 Preparar-se para sair"],
-          ["15:30–17:00", "🚶‍♀️💃 Caminhar até a Prefeitura, ensaiar dança e voltar"],
-          ["17:00–18:00", "🧹 Tarefas domésticas ou escolares"],
-          ["18:00–19:00", "📚 Revisar conteúdos, se necessário"],
-          ["19:00–19:30", "🍽️ Jantar"],
-          ["19:30–20:30", "🌷 Tempo livre"],
-          ["20:30–21:00", "🌙 Higiene e preparação para dormir"],
-          ["21:00", "😴 Dormir"]
+
+      terca: {
+        title: "Terça-feira 🌸",
+        groups: [
+          {
+            title: "🌅 Rotina da manhã",
+            tasks: [
+              ["05:00", "Acordar"],
+              ["05:00–05:10", "Arrumar a pia"],
+              ["05:10–05:20", "Arrumar o quarto"],
+              ["05:20–05:30", "Limpar a sujeira dos gatos"],
+              ["05:30–05:40", "Organizar a mochila"],
+              ["05:40–05:55", "Tomar café da manhã"],
+              ["05:55–06:25", "Higiene pessoal e se arrumar"],
+              ["06:30", "Sair para a escola"]
+            ]
+          },
+          {
+            title: "🏫 Escola",
+            tasks: [
+              ["07:10–12:30", "Escola"]
+            ]
+          },
+          {
+            title: "🏡 Tarde em casa",
+            tasks: [
+              ["12:30–13:10", "Chegar em casa e almoçar"],
+              ["13:10–14:00", "Descansar depois do almoço"],
+              ["14:00–15:30", "Limpar e organizar a casa"],
+              ["15:30–16:00", "Trocar de roupa e se preparar para sair"],
+              ["16:00–17:00", "Caminhada e ensaio de dança na Prefeitura"]
+            ]
+          },
+          {
+            title: "📚 Estudos e noite",
+            tasks: [
+              ["17:00–17:30", "Voltar para casa e descansar"],
+              ["17:30–18:30", "Estudar para a escola e para a ETEC"],
+              ["18:30–19:00", "Jantar"],
+              ["19:00–20:00", "Fazer tarefas ou revisar conteúdos, se necessário"],
+              ["20:00–20:40", "Higiene, mochila e roupa do dia seguinte"],
+              ["20:40–21:00", "Relaxar e se preparar para dormir"],
+              ["21:00", "Dormir"]
+            ]
+          }
         ]
       },
-      {
-        day: "Quarta-feira",
-        tasks: [
-          ["05:00", "🌅 Acordar"],
-          ["05:00–05:10", "🧽 Arrumar a pia"],
-          ["05:10–05:20", "🛏️ Arrumar o quarto"],
-          ["05:20–05:30", "🐱 Limpar o cocô dos gatos"],
-          ["05:30–05:40", "🎒 Organizar a mochila"],
-          ["05:40–05:55", "🥣 Tomar café da manhã"],
-          ["05:55–06:25", "🪞 Se arrumar para a escola"],
-          ["06:30", "🚌 Sair de casa"],
-          ["07:10–12:30", "🏫 Escola"],
-          ["12:30–13:15", "🏠 Voltar para casa e almoçar"],
-          ["13:15–14:00", "🛋️ Descansar"],
-          ["14:00–15:30", "📚 Estudar para a escola e a ETEC"],
-          ["15:30–16:30", "🧹 Arrumar a casa e adiantar tarefas"],
-          ["16:30–17:00", "🍎 Fazer um lanche e descansar"],
-          ["17:00–18:00", "🎒 Preparar-se e deslocar-se para a escola de dança"],
-          ["18:00–22:00 aprox.", "💃🩰 Danças urbanas (fixo) + jazz (temporário)"],
-          ["Após a aula", "🏠 Voltar para casa"],
-          ["Ao chegar", "🌙 Higiene e descanso; dormir assim que possível"]
+
+      quarta: {
+        title: "Quarta-feira 💃",
+        groups: [
+          {
+            title: "🌅 Rotina da manhã",
+            tasks: [
+              ["05:00", "Acordar"],
+              ["05:00–05:10", "Arrumar a pia"],
+              ["05:10–05:20", "Arrumar o quarto"],
+              ["05:20–05:30", "Limpar a sujeira dos gatos"],
+              ["05:30–05:40", "Organizar a mochila"],
+              ["05:40–05:55", "Tomar café da manhã"],
+              ["05:55–06:25", "Higiene pessoal e se arrumar"],
+              ["06:30", "Sair para a escola"]
+            ]
+          },
+          {
+            title: "🏫 Escola",
+            tasks: [
+              ["07:10–12:30", "Escola"]
+            ]
+          },
+          {
+            title: "🏡 Tarde em casa",
+            tasks: [
+              ["12:30–13:10", "Chegar em casa e almoçar"],
+              ["13:10–13:50", "Descansar depois do almoço"],
+              ["13:50–15:00", "Limpar e organizar a casa"],
+              ["15:00–16:00", "Estudar para a escola e para a ETEC"],
+              ["16:00–16:30", "Lanche e pausa"],
+              ["16:30–17:15", "Continuar os estudos ou terminar tarefas"],
+              ["17:15–18:00", "Se arrumar e ir para a escola de dança"]
+            ]
+          },
+          {
+            title: "💃 Dança e noite",
+            tasks: [
+              ["18:00–22:00", "Dança urbana e jazz (jazz temporário)"],
+              ["Depois da aula", "Voltar para casa, tomar banho e descansar"],
+              ["Antes de dormir", "Separar o necessário para quinta-feira"]
+            ]
+          }
         ]
       },
-      {
-        day: "Quinta-feira",
-        tasks: [
-          ["05:00", "🌅 Acordar"],
-          ["05:00–05:10", "🧽 Arrumar a pia"],
-          ["05:10–05:20", "🛏️ Arrumar o quarto"],
-          ["05:20–05:30", "🐱 Limpar o cocô dos gatos"],
-          ["05:30–05:40", "🎒 Organizar a mochila"],
-          ["05:40–05:55", "🥣 Tomar café da manhã"],
-          ["05:55–06:25", "🪞 Se arrumar para a escola"],
-          ["06:30", "🚌 Sair de casa"],
-          ["07:10–13:30", "🏫 Escola + robótica"],
-          ["13:30–14:00", "🏠 Voltar para casa"],
-          ["14:00–14:30", "🍽️ Almoçar"],
-          ["14:30–15:00", "🧹 Arrumar a casa"],
-          ["15:00–15:30", "🎒 Preparar-se para sair"],
-          ["15:30–17:00", "🚶‍♀️💃 Caminhar até a Prefeitura, ensaiar dança e voltar"],
-          ["17:00–18:30", "📚 Estudar para a escola e a ETEC"],
-          ["18:30–19:00", "🍽️ Jantar"],
-          ["19:00–20:00", "📖 Tarefas ou revisão, se necessário"],
-          ["20:00–21:00", "🌷 Tempo livre e preparação para dormir"],
-          ["21:00", "😴 Dormir"]
+
+      quinta: {
+        title: "Quinta-feira 🌼",
+        groups: [
+          {
+            title: "🌅 Rotina da manhã",
+            tasks: [
+              ["05:00", "Acordar"],
+              ["05:00–05:10", "Arrumar a pia"],
+              ["05:10–05:20", "Arrumar o quarto"],
+              ["05:20–05:30", "Limpar a sujeira dos gatos"],
+              ["05:30–05:40", "Organizar a mochila"],
+              ["05:40–05:55", "Tomar café da manhã"],
+              ["05:55–06:25", "Higiene pessoal e se arrumar"],
+              ["06:30", "Sair para a escola"]
+            ]
+          },
+          {
+            title: "🏫 Escola",
+            tasks: [
+              ["07:10–13:30", "Escola + robótica"]
+            ]
+          },
+          {
+            title: "🏡 Tarde em casa",
+            tasks: [
+              ["13:30–14:00", "Chegar em casa e almoçar"],
+              ["14:00–14:30", "Descansar depois do almoço"],
+              ["14:30–15:30", "Limpar e organizar a casa"],
+              ["15:30–16:00", "Trocar de roupa e se preparar para sair"],
+              ["16:00–17:00", "Caminhada e ensaio de dança na Prefeitura"]
+            ]
+          },
+          {
+            title: "📚 Estudos e noite",
+            tasks: [
+              ["17:00–17:30", "Voltar para casa e descansar"],
+              ["17:30–18:30", "Estudar para a escola e para a ETEC"],
+              ["18:30–19:00", "Jantar"],
+              ["19:00–20:00", "Fazer tarefas ou revisar conteúdos, se necessário"],
+              ["20:00–20:40", "Higiene, mochila e roupa do dia seguinte"],
+              ["20:40–21:00", "Relaxar e se preparar para dormir"],
+              ["21:00", "Dormir"]
+            ]
+          }
         ]
       },
-      {
-        day: "Sexta-feira",
-        tasks: [
-          ["05:00", "🌅 Acordar"],
-          ["05:00–05:10", "🧽 Arrumar a pia"],
-          ["05:10–05:20", "🛏️ Arrumar o quarto"],
-          ["05:20–05:30", "🐱 Limpar o cocô dos gatos"],
-          ["05:30–05:40", "🎒 Organizar a mochila"],
-          ["05:40–05:55", "🥣 Tomar café da manhã"],
-          ["05:55–06:25", "🪞 Se arrumar para a escola"],
-          ["06:30", "🚌 Sair de casa"],
-          ["07:10–12:30", "🏫 Escola"],
-          ["12:30–13:15", "🏠 Voltar para casa e almoçar"],
-          ["13:15–14:30", "🧹 Arrumar a casa"],
-          ["14:30–16:00", "📚 Estudar para a escola e a ETEC"],
-          ["A partir das 16:00", "💗 Tempo livre: fazer o que quiser!"],
-          ["À noite", "🌙 Descansar e manter um horário de sono confortável"]
+
+      sexta: {
+        title: "Sexta-feira 💗",
+        groups: [
+          {
+            title: "🌅 Rotina da manhã",
+            tasks: [
+              ["05:00", "Acordar"],
+              ["05:00–05:10", "Arrumar a pia"],
+              ["05:10–05:20", "Arrumar o quarto"],
+              ["05:20–05:30", "Limpar a sujeira dos gatos"],
+              ["05:30–05:40", "Organizar a mochila"],
+              ["05:40–05:55", "Tomar café da manhã"],
+              ["05:55–06:25", "Higiene pessoal e se arrumar"],
+              ["06:30", "Sair para a escola"]
+            ]
+          },
+          {
+            title: "🏫 Escola",
+            tasks: [
+              ["07:10–12:30", "Escola"]
+            ]
+          },
+          {
+            title: "🏡 Tarde em casa",
+            tasks: [
+              ["12:30–13:15", "Chegar em casa e almoçar"],
+              ["13:15–14:30", "Limpar e organizar a casa"],
+              ["14:30–16:00", "Estudar para a escola e para a ETEC"],
+              ["16:00 em diante", "Tempo livre para descansar e fazer o que quiser"]
+            ]
+          },
+          {
+            title: "🌙 Noite",
+            tasks: [
+              ["À noite", "Jantar"],
+              ["Antes de dormir", "Organizar o que precisar para o fim de semana"],
+              ["No seu ritmo", "Relaxar e dormir em um horário adequado"]
+            ]
+          }
         ]
       },
-      {
-        day: "Sábado",
-        tasks: [
-          ["07:00", "🌅 Acordar no seu ritmo"],
-          ["07:00–08:00", "🥣 Higiene e café da manhã"],
-          ["08:00–09:00", "🧹 Organizar a casa, se necessário"],
-          ["09:00–10:00", "📚 Estudar, se houver tarefas pendentes"],
-          ["10:00–12:00", "🎨 Tempo livre"],
-          ["12:00–13:00", "🍽️ Almoço"],
-          ["13:00–17:00", "💗 Lazer e descanso"],
-          ["17:00–18:00", "🗓️ Organizar a próxima semana, se necessário"],
-          ["18:00–18:30", "🍽️ Jantar"],
-          ["Após o jantar", "🌷 Tempo livre e descanso"]
+
+      sabado: {
+        title: "Sábado 🌷",
+        groups: [
+          {
+            title: "☀️ Manhã",
+            tasks: [
+              ["07:00 (flexível)", "Acordar"],
+              ["De manhã", "Higiene pessoal e café da manhã"],
+              ["Se necessário", "Ajudar com a limpeza da casa"],
+              ["Se necessário", "Estudar ou terminar tarefas escolares"]
+            ]
+          },
+          {
+            title: "🌸 Tarde e noite",
+            tasks: [
+              ["12:00–13:00", "Almoçar"],
+              ["À tarde", "Tempo livre, lazer e descanso"],
+              ["No fim da tarde", "Organizar alguma coisa pendente, se necessário"],
+              ["À noite", "Jantar e relaxar"],
+              ["Antes de dormir", "Descansar sem pressa"]
+            ]
+          }
         ]
       },
-      {
-        day: "Domingo",
-        tasks: [
-          ["07:00", "🌅 Acordar no seu ritmo"],
-          ["07:00–08:00", "🥣 Higiene e café da manhã"],
-          ["08:00–09:00", "🗓️ Organizar a semana, se necessário"],
-          ["09:00–10:30", "📚 Revisar conteúdos, se houver necessidade"],
-          ["10:30–12:00", "💗 Tempo livre"],
-          ["12:00–13:00", "🍽️ Almoço"],
-          ["13:00–15:00", "🛋️ Descansar"],
-          ["15:00–16:00", "🎒 Preparar mochila e uniforme"],
-          ["16:00–18:00", "🌸 Tempo livre"],
-          ["18:00–18:30", "🍽️ Jantar"],
-          ["18:30–20:00", "📖 Revisar para a escola, se necessário"],
-          ["20:00–21:00", "🌙 Desacelerar e preparar-se para dormir"],
-          ["21:00", "😴 Dormir, se esse horário funcionar para você"]
+
+      domingo: {
+        title: "Domingo 🌼",
+        groups: [
+          {
+            title: "☀️ Manhã",
+            tasks: [
+              ["07:00 (flexível)", "Acordar"],
+              ["De manhã", "Higiene pessoal e café da manhã"],
+              ["De manhã", "Organizar a semana"],
+              ["Se necessário", "Revisar conteúdos da escola e da ETEC"]
+            ]
+          },
+          {
+            title: "🌸 Tarde",
+            tasks: [
+              ["12:00–13:00", "Almoçar"],
+              ["À tarde", "Descansar e aproveitar o tempo livre"],
+              ["Fim da tarde", "Conferir mochila e separar o uniforme"],
+              ["Fim da tarde", "Conferir as tarefas e avaliações da semana"]
+            ]
+          },
+          {
+            title: "🌙 Noite",
+            tasks: [
+              ["À noite", "Jantar"],
+              ["Depois do jantar", "Relaxar e diminuir o ritmo"],
+              ["Antes de dormir", "Deixar tudo pronto para segunda-feira"]
+            ]
+          }
         ]
       }
-    ];
+    };
 
-    // Calcula a semana atual, começando na segunda-feira.
-    function getWeekKey(date = new Date()) {
-      const d = new Date(Date.UTC(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate()
-      ));
+    const daySelect = document.getElementById("daySelect");
+    const dayTitle = document.getElementById("dayTitle");
+    const taskList = document.getElementById("taskList");
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+    const progressTrack = document.getElementById("progressTrack");
 
-      const weekday = d.getUTCDay() || 7;
-      d.setUTCDate(d.getUTCDate() + 4 - weekday);
-
-      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-      const week = Math.ceil(
-        (((d - yearStart) / 86400000) + 1) / 7
+    function getWeekKey() {
+      const now = new Date();
+      const date = new Date(
+        Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())
       );
 
-      return `${d.getUTCFullYear()}-W${week}`;
+      const day = date.getUTCDay() || 7;
+      date.setUTCDate(date.getUTCDate() + 4 - day);
+
+      const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+      const week = Math.ceil(
+        (((date - yearStart) / 86400000) + 1) / 7
+      );
+
+      return `${date.getUTCFullYear()}-W${String(week).padStart(2, "0")}`;
     }
 
-    const storageKey = `rotina-checkbox-${getWeekKey()}`;
-    const todayIndex = (new Date().getDay() + 6) % 7;
-
-    const daySelect = document.getElementById("day-select");
-    const tasksContainer = document.getElementById("tasks");
-    const dayTitle = document.getElementById("day-title");
-    const todayBadge = document.getElementById("today-badge");
-    const progressCount = document.getElementById("progress-count");
-    const progressFill = document.getElementById("progress-fill");
-    const progressTrack = document.getElementById("progress-track");
-
-    let completed = {};
-
-    // Se o navegador bloquear o armazenamento, a rotina ainda funciona.
-    try {
-      completed = JSON.parse(localStorage.getItem(storageKey) || "{}");
-
-      if (
-        !completed ||
-        typeof completed !== "object" ||
-        Array.isArray(completed)
-      ) {
-        completed = {};
-      }
-    } catch {
-      completed = {};
+    function getStorageKey(day) {
+      return `rotina-lice-${getWeekKey()}-${day}`;
     }
 
-    function save() {
+    function getSavedTasks(day) {
       try {
-        localStorage.setItem(storageKey, JSON.stringify(completed));
-      } catch {
-        // As tarefas continuam funcionando durante a sessão.
+        return JSON.parse(localStorage.getItem(getStorageKey(day))) || {};
+      } catch (error) {
+        return {};
       }
     }
 
-    function renderDay() {
-      const dayIndex = Number(daySelect.value);
-      const day = routine[dayIndex];
+    function saveTasks(day, checkedTasks) {
+      localStorage.setItem(
+        getStorageKey(day),
+        JSON.stringify(checkedTasks)
+      );
+    }
 
-      if (!day) return;
+    function updateProgress() {
+      const checkboxes = [...taskList.querySelectorAll(
+        'input[type="checkbox"]'
+      )];
 
-      dayTitle.textContent = `${day.day} 💕`;
-      todayBadge.hidden = dayIndex !== todayIndex;
-      tasksContainer.replaceChildren();
+      const completed = checkboxes.filter(box => box.checked).length;
+      const total = checkboxes.length;
+      const percent = total === 0
+        ? 0
+        : Math.round((completed / total) * 100);
 
-      day.tasks.forEach((task, taskIndex) => {
-        const id = `${dayIndex}-${taskIndex}`;
+      progressBar.style.width = `${percent}%`;
+      progressText.textContent =
+        `${completed} de ${total} tarefas · ${percent}%`;
 
-        const label = document.createElement("label");
-        label.className = "task";
+      progressTrack.setAttribute("aria-valuenow", String(percent));
+    }
 
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = Boolean(completed[id]);
-        checkbox.setAttribute("aria-label", task[1]);
+    function renderDay(day) {
+      const dayData = routine[day];
+      const savedTasks = getSavedTasks(day);
 
-        const content = document.createElement("span");
-        content.className = "task-content";
+      dayTitle.textContent = dayData.title;
+      taskList.replaceChildren();
 
-        const time = document.createElement("span");
-        time.className = "task-time";
-        time.textContent = task[0];
+      dayData.groups.forEach((group, groupIndex) => {
+        const groupElement = document.createElement("div");
+        groupElement.className = "task-group";
 
-        const name = document.createElement("span");
-        name.className = "task-name";
-        name.textContent = task[1];
+        const heading = document.createElement("h3");
+        heading.textContent = group.title;
+        groupElement.appendChild(heading);
 
-        content.append(time, name);
-        label.append(checkbox, content);
-        tasksContainer.appendChild(label);
+        group.tasks.forEach((task, taskIndex) => {
+          const taskId = `${day}-${groupIndex}-${taskIndex}`;
+          const label = document.createElement("label");
+          label.className = "task";
 
-        checkbox.addEventListener("change", () => {
-          completed[id] = checkbox.checked;
-          save();
-          updateProgress();
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = Boolean(savedTasks[taskId]);
+
+          const content = document.createElement("span");
+          content.className = "task-text";
+
+          const time = document.createElement("span");
+          time.className = "task-time";
+          time.textContent = task[0];
+
+          const description = document.createElement("span");
+          description.textContent = task[1];
+
+          content.append(time, description);
+          label.append(checkbox, content);
+
+          if (checkbox.checked) {
+            label.classList.add("done");
+          }
+
+          checkbox.addEventListener("change", () => {
+            label.classList.toggle("done", checkbox.checked);
+
+            const currentTasks = getSavedTasks(day);
+            currentTasks[taskId] = checkbox.checked;
+            saveTasks(day, currentTasks);
+
+            updateProgress();
+          });
+
+          groupElement.appendChild(label);
         });
+
+        taskList.appendChild(groupElement);
       });
 
       updateProgress();
     }
 
-    function updateProgress() {
-      const dayIndex = Number(daySelect.value);
-      const total = routine[dayIndex].tasks.length;
+    function setAllTasks(checked) {
+      const day = daySelect.value;
+      const checkboxes = [
+        ...taskList.querySelectorAll('input[type="checkbox"]')
+      ];
+      const savedTasks = {};
 
-      const done = routine[dayIndex].tasks.reduce((count, _, i) => {
-        return count + (completed[`${dayIndex}-${i}`] ? 1 : 0);
-      }, 0);
+      checkboxes.forEach((checkbox, index) => {
+        checkbox.checked = checked;
+        checkbox.closest(".task").classList.toggle("done", checked);
 
-      const percentage = total ? (done / total) * 100 : 0;
+        const groupIndex = Number(
+          checkbox.closest(".task-group")
+            .querySelector("h3") !== null
+            ? checkbox.closest(".task-group")
+                .dataset.groupIndex || 0
+            : 0
+        );
 
-      progressCount.textContent = `${done} de ${total} tarefas`;
-      progressFill.style.width = `${percentage}%`;
-      progressTrack.setAttribute("aria-valuenow", String(Math.round(percentage)));
+        savedTasks[getTaskIdFromCheckbox(day, checkbox)] = checked;
+      });
+
+      saveTasks(day, savedTasks);
+      updateProgress();
     }
 
-    document.getElementById("mark-all").addEventListener("click", () => {
-      const dayIndex = Number(daySelect.value);
+    function getTaskIdFromCheckbox(day, checkbox) {
+      const allGroups = [...taskList.querySelectorAll(".task-group")];
 
-      routine[dayIndex].tasks.forEach((_, i) => {
-        completed[`${dayIndex}-${i}`] = true;
-      });
+      for (let groupIndex = 0; groupIndex < allGroups.length; groupIndex++) {
+        const boxes = [
+          ...allGroups[groupIndex].querySelectorAll(
+            'input[type="checkbox"]'
+          )
+        ];
 
-      save();
-      renderDay();
+        const taskIndex = boxes.indexOf(checkbox);
+
+        if (taskIndex !== -1) {
+          return `${day}-${groupIndex}-${taskIndex}`;
+        }
+      }
+
+      return "";
+    }
+
+    daySelect.addEventListener("change", () => {
+      renderDay(daySelect.value);
     });
 
-    document.getElementById("unmark-all").addEventListener("click", () => {
-      const dayIndex = Number(daySelect.value);
-
-      routine[dayIndex].tasks.forEach((_, i) => {
-        completed[`${dayIndex}-${i}`] = false;
-      });
-
-      save();
-      renderDay();
+    document.getElementById("markAll").addEventListener("click", () => {
+      setAllTasks(true);
     });
 
-    daySelect.addEventListener("change", renderDay);
+    document.getElementById("unmarkAll").addEventListener("click", () => {
+      setAllTasks(false);
+    });
 
-    // Abre automaticamente no dia atual.
-    daySelect.value = String(todayIndex);
-    renderDay();
+    renderDay(daySelect.value);
   </script>
 </body>
 </html>
