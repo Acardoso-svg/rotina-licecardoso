@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff0f6">
   <title>Rotina da Lice 💗</title>
 
   <style>
@@ -14,7 +15,6 @@
       --pink-border: #f5c5da;
       --text: #593747;
       --white: #ffffff;
-      --green: #78b99a;
     }
 
     * {
@@ -37,7 +37,7 @@
 
     header {
       text-align: center;
-      padding: 22px 14px;
+      padding: 24px 14px;
       background: var(--white);
       border: 2px solid var(--pink-border);
       border-radius: 24px;
@@ -66,7 +66,7 @@
       box-shadow: 0 4px 14px #d78bac12;
     }
 
-    label {
+    .field-label {
       display: block;
       margin-bottom: 9px;
       font-weight: bold;
@@ -142,14 +142,25 @@
       background: #f6d2e2;
     }
 
+    button:focus-visible,
+    select:focus-visible,
+    input:focus-visible {
+      outline: 3px solid #d9659c;
+      outline-offset: 3px;
+    }
+
     #dayTitle {
-      margin: 4px 0 16px;
+      margin: 4px 0 18px;
       color: var(--pink-dark);
       font-size: 23px;
     }
 
     .task-group {
-      margin-bottom: 20px;
+      margin-bottom: 22px;
+    }
+
+    .task-group:last-child {
+      margin-bottom: 0;
     }
 
     .task-group h3 {
@@ -189,10 +200,10 @@
     }
 
     .task-time {
+      display: block;
       color: #a7798e;
       font-size: 13px;
-      display: inline-block;
-      min-width: 105px;
+      margin-bottom: 2px;
     }
 
     .task.done .task-text {
@@ -209,7 +220,7 @@
       border-radius: 13px;
       padding: 13px;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.8;
       color: #86536c;
     }
 
@@ -228,25 +239,23 @@
       .panel {
         padding: 14px;
       }
-
-      .task-time {
-        min-width: 0;
-        display: block;
-        margin-bottom: 3px;
-      }
     }
   </style>
 </head>
 
 <body>
   <main class="container">
+
     <header>
       <h1>🌷 Minha Rotina 💗</h1>
       <p>Um dia de cada vez, construindo a minha melhor versão. 💗</p>
     </header>
 
     <section class="panel">
-      <label for="daySelect">🌸 Escolha o dia da sua rotina</label>
+      <label class="field-label" for="daySelect">
+        🌸 Escolha o dia da sua rotina
+      </label>
+
       <select id="daySelect">
         <option value="segunda">Segunda-feira</option>
         <option value="terca">Terça-feira</option>
@@ -261,17 +270,17 @@
     <section class="panel">
       <div class="progress-info">
         <strong>💗 Progresso do dia</strong>
-        <span id="progressText">0 de 0 tarefas</span>
+        <span id="progressText">0 de 0 tarefas · 0%</span>
       </div>
 
       <div
         class="progress-track"
+        id="progressTrack"
         role="progressbar"
         aria-label="Progresso das tarefas"
         aria-valuemin="0"
         aria-valuemax="100"
         aria-valuenow="0"
-        id="progressTrack"
       >
         <div id="progressBar"></div>
       </div>
@@ -285,23 +294,27 @@
     </section>
 
     <section class="panel">
-      <h2 id="dayTitle">Segunda-feira 💗</h2>
+      <h2 id="dayTitle">Segunda-feira 🌷</h2>
       <div id="taskList"></div>
     </section>
 
     <section class="panel">
       <div class="note">
-        🌷 <strong>Lembretes carinhosos:</strong><br>
-        ☔ Se chover, adapte ou cancele a caminhada.<br>
-        📚 Priorize as tarefas escolares e a preparação para a ETEC.<br>
+        🌷 <strong>Meus lembretes:</strong><br>
+        🏡 Chegar da escola, almoçar e descansar antes da limpeza.<br>
+        🧹 Terminar a limpeza até 15h30 nos dias de caminhada.<br>
+        🚶‍♀️ Caminhar das 16h às 17h na segunda, terça e quinta.<br>
+        📚 Estudar depois de voltar da caminhada.<br>
         💃 Quarta-feira é dia de dança, sem caminhada.<br>
-        💗 Não precisa fazer tudo perfeitamente. Consistência vale mais que perfeição!
+        ☔ Se chover, adaptar a rotina sem culpa.<br>
+        💗 Consistência vale mais que perfeição!
       </div>
     </section>
 
     <footer>
       Feito com carinho para você 💗 Um passo de cada vez!
     </footer>
+
   </main>
 
   <script>
@@ -318,7 +331,7 @@
               ["05:20–05:30", "Limpar a sujeira dos gatos"],
               ["05:30–05:40", "Organizar a mochila"],
               ["05:40–05:55", "Tomar café da manhã"],
-              ["05:55–06:25", "Higiene pessoal e se arrumar"],
+              ["05:55–06:25", "Fazer a higiene pessoal e se arrumar"],
               ["06:30", "Sair para a escola"]
             ]
           },
@@ -329,23 +342,28 @@
             ]
           },
           {
-            title: "🏡 Tarde em casa",
+            title: "🏡 Chegada, almoço e casa",
             tasks: [
               ["13:00–13:40", "Chegar em casa e almoçar"],
               ["13:40–14:15", "Descansar depois do almoço"],
-              ["14:15–15:30", "Limpar e organizar a casa"],
+              ["14:15–15:30", "Limpar e organizar a casa"]
+            ]
+          },
+          {
+            title: "🚶‍♀️ Caminhada",
+            tasks: [
               ["15:30–16:00", "Trocar de roupa e se preparar para sair"],
-              ["16:00–17:00", "Caminhada e ensaio de dança na Prefeitura"]
+              ["16:00–17:00", "Caminhada e ensaio de dança na Prefeitura"],
+              ["17:00–17:30", "Voltar para casa e fazer uma pausa"]
             ]
           },
           {
             title: "📚 Estudos e noite",
             tasks: [
-              ["17:00–17:30", "Voltar para casa e descansar"],
-              ["17:30–18:30", "Estudar para a escola e para a ETEC"],
-              ["18:30–19:00", "Jantar"],
-              ["19:00–20:00", "Fazer tarefas ou revisar conteúdos, se necessário"],
-              ["20:00–20:40", "Higiene, mochila e roupa do dia seguinte"],
+              ["17:30–18:45", "Estudar para a escola e para a ETEC"],
+              ["18:45–19:15", "Jantar"],
+              ["19:15–20:00", "Terminar tarefas ou revisar conteúdos, se necessário"],
+              ["20:00–20:40", "Tomar banho, organizar a mochila e separar a roupa"],
               ["20:40–21:00", "Relaxar e se preparar para dormir"],
               ["21:00", "Dormir"]
             ]
@@ -365,7 +383,7 @@
               ["05:20–05:30", "Limpar a sujeira dos gatos"],
               ["05:30–05:40", "Organizar a mochila"],
               ["05:40–05:55", "Tomar café da manhã"],
-              ["05:55–06:25", "Higiene pessoal e se arrumar"],
+              ["05:55–06:25", "Fazer a higiene pessoal e se arrumar"],
               ["06:30", "Sair para a escola"]
             ]
           },
@@ -376,23 +394,28 @@
             ]
           },
           {
-            title: "🏡 Tarde em casa",
+            title: "🏡 Chegada, almoço e casa",
             tasks: [
               ["12:30–13:10", "Chegar em casa e almoçar"],
               ["13:10–14:00", "Descansar depois do almoço"],
-              ["14:00–15:30", "Limpar e organizar a casa"],
+              ["14:00–15:30", "Limpar e organizar a casa"]
+            ]
+          },
+          {
+            title: "🚶‍♀️ Caminhada",
+            tasks: [
               ["15:30–16:00", "Trocar de roupa e se preparar para sair"],
-              ["16:00–17:00", "Caminhada e ensaio de dança na Prefeitura"]
+              ["16:00–17:00", "Caminhada e ensaio de dança na Prefeitura"],
+              ["17:00–17:30", "Voltar para casa e fazer uma pausa"]
             ]
           },
           {
             title: "📚 Estudos e noite",
             tasks: [
-              ["17:00–17:30", "Voltar para casa e descansar"],
-              ["17:30–18:30", "Estudar para a escola e para a ETEC"],
-              ["18:30–19:00", "Jantar"],
-              ["19:00–20:00", "Fazer tarefas ou revisar conteúdos, se necessário"],
-              ["20:00–20:40", "Higiene, mochila e roupa do dia seguinte"],
+              ["17:30–18:45", "Estudar para a escola e para a ETEC"],
+              ["18:45–19:15", "Jantar"],
+              ["19:15–20:00", "Terminar tarefas ou revisar conteúdos, se necessário"],
+              ["20:00–20:40", "Tomar banho, organizar a mochila e separar a roupa"],
               ["20:40–21:00", "Relaxar e se preparar para dormir"],
               ["21:00", "Dormir"]
             ]
@@ -412,7 +435,7 @@
               ["05:20–05:30", "Limpar a sujeira dos gatos"],
               ["05:30–05:40", "Organizar a mochila"],
               ["05:40–05:55", "Tomar café da manhã"],
-              ["05:55–06:25", "Higiene pessoal e se arrumar"],
+              ["05:55–06:25", "Fazer a higiene pessoal e se arrumar"],
               ["06:30", "Sair para a escola"]
             ]
           },
@@ -427,19 +450,19 @@
             tasks: [
               ["12:30–13:10", "Chegar em casa e almoçar"],
               ["13:10–13:50", "Descansar depois do almoço"],
-              ["13:50–15:00", "Limpar e organizar a casa"],
-              ["15:00–16:00", "Estudar para a escola e para a ETEC"],
-              ["16:00–16:30", "Lanche e pausa"],
-              ["16:30–17:15", "Continuar os estudos ou terminar tarefas"],
+              ["13:50–14:50", "Limpar e organizar a casa"],
+              ["14:50–16:00", "Estudar para a escola e para a ETEC"],
+              ["16:00–16:30", "Fazer um lanche e descansar"],
+              ["16:30–17:15", "Terminar tarefas ou revisar conteúdos"],
               ["17:15–18:00", "Se arrumar e ir para a escola de dança"]
             ]
           },
           {
             title: "💃 Dança e noite",
             tasks: [
-              ["18:00–22:00", "Dança urbana e jazz (jazz temporário)"],
+              ["18:00–22:00", "Aulas de dança urbana e jazz (jazz temporário)"],
               ["Depois da aula", "Voltar para casa, tomar banho e descansar"],
-              ["Antes de dormir", "Separar o necessário para quinta-feira"]
+              ["Antes de dormir", "Deixar o necessário separado para quinta-feira"]
             ]
           }
         ]
@@ -457,7 +480,7 @@
               ["05:20–05:30", "Limpar a sujeira dos gatos"],
               ["05:30–05:40", "Organizar a mochila"],
               ["05:40–05:55", "Tomar café da manhã"],
-              ["05:55–06:25", "Higiene pessoal e se arrumar"],
+              ["05:55–06:25", "Fazer a higiene pessoal e se arrumar"],
               ["06:30", "Sair para a escola"]
             ]
           },
@@ -468,23 +491,28 @@
             ]
           },
           {
-            title: "🏡 Tarde em casa",
+            title: "🏡 Chegada, almoço e casa",
             tasks: [
               ["13:30–14:00", "Chegar em casa e almoçar"],
               ["14:00–14:30", "Descansar depois do almoço"],
-              ["14:30–15:30", "Limpar e organizar a casa"],
+              ["14:30–15:30", "Limpar e organizar a casa"]
+            ]
+          },
+          {
+            title: "🚶‍♀️ Caminhada",
+            tasks: [
               ["15:30–16:00", "Trocar de roupa e se preparar para sair"],
-              ["16:00–17:00", "Caminhada e ensaio de dança na Prefeitura"]
+              ["16:00–17:00", "Caminhada e ensaio de dança na Prefeitura"],
+              ["17:00–17:30", "Voltar para casa e fazer uma pausa"]
             ]
           },
           {
             title: "📚 Estudos e noite",
             tasks: [
-              ["17:00–17:30", "Voltar para casa e descansar"],
-              ["17:30–18:30", "Estudar para a escola e para a ETEC"],
-              ["18:30–19:00", "Jantar"],
-              ["19:00–20:00", "Fazer tarefas ou revisar conteúdos, se necessário"],
-              ["20:00–20:40", "Higiene, mochila e roupa do dia seguinte"],
+              ["17:30–18:45", "Estudar para a escola e para a ETEC"],
+              ["18:45–19:15", "Jantar"],
+              ["19:15–20:00", "Terminar tarefas ou revisar conteúdos, se necessário"],
+              ["20:00–20:40", "Tomar banho, organizar a mochila e separar a roupa"],
               ["20:40–21:00", "Relaxar e se preparar para dormir"],
               ["21:00", "Dormir"]
             ]
@@ -504,7 +532,7 @@
               ["05:20–05:30", "Limpar a sujeira dos gatos"],
               ["05:30–05:40", "Organizar a mochila"],
               ["05:40–05:55", "Tomar café da manhã"],
-              ["05:55–06:25", "Higiene pessoal e se arrumar"],
+              ["05:55–06:25", "Fazer a higiene pessoal e se arrumar"],
               ["06:30", "Sair para a escola"]
             ]
           },
@@ -520,15 +548,15 @@
               ["12:30–13:15", "Chegar em casa e almoçar"],
               ["13:15–14:30", "Limpar e organizar a casa"],
               ["14:30–16:00", "Estudar para a escola e para a ETEC"],
-              ["16:00 em diante", "Tempo livre para descansar e fazer o que quiser"]
+              ["16:00 em diante", "Tempo livre para descansar e aproveitar"]
             ]
           },
           {
             title: "🌙 Noite",
             tasks: [
               ["À noite", "Jantar"],
-              ["Antes de dormir", "Organizar o que precisar para o fim de semana"],
-              ["No seu ritmo", "Relaxar e dormir em um horário adequado"]
+              ["Quando precisar", "Organizar alguma coisa para o fim de semana"],
+              ["No seu ritmo", "Relaxar e descansar"]
             ]
           }
         ]
@@ -541,7 +569,7 @@
             title: "☀️ Manhã",
             tasks: [
               ["07:00 (flexível)", "Acordar"],
-              ["De manhã", "Higiene pessoal e café da manhã"],
+              ["De manhã", "Fazer a higiene pessoal e tomar café"],
               ["Se necessário", "Ajudar com a limpeza da casa"],
               ["Se necessário", "Estudar ou terminar tarefas escolares"]
             ]
@@ -551,7 +579,7 @@
             tasks: [
               ["12:00–13:00", "Almoçar"],
               ["À tarde", "Tempo livre, lazer e descanso"],
-              ["No fim da tarde", "Organizar alguma coisa pendente, se necessário"],
+              ["Se necessário", "Resolver alguma tarefa pendente"],
               ["À noite", "Jantar e relaxar"],
               ["Antes de dormir", "Descansar sem pressa"]
             ]
@@ -566,7 +594,7 @@
             title: "☀️ Manhã",
             tasks: [
               ["07:00 (flexível)", "Acordar"],
-              ["De manhã", "Higiene pessoal e café da manhã"],
+              ["De manhã", "Fazer a higiene pessoal e tomar café"],
               ["De manhã", "Organizar a semana"],
               ["Se necessário", "Revisar conteúdos da escola e da ETEC"]
             ]
@@ -576,7 +604,7 @@
             tasks: [
               ["12:00–13:00", "Almoçar"],
               ["À tarde", "Descansar e aproveitar o tempo livre"],
-              ["Fim da tarde", "Conferir mochila e separar o uniforme"],
+              ["Fim da tarde", "Conferir a mochila e separar o uniforme"],
               ["Fim da tarde", "Conferir as tarefas e avaliações da semana"]
             ]
           },
@@ -601,9 +629,12 @@
 
     function getWeekKey() {
       const now = new Date();
-      const date = new Date(
-        Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())
-      );
+
+      const date = new Date(Date.UTC(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
+      ));
 
       const day = date.getUTCDay() || 7;
       date.setUTCDate(date.getUTCDate() + 4 - day);
@@ -628,17 +659,18 @@
       }
     }
 
-    function saveTasks(day, checkedTasks) {
-      localStorage.setItem(
-        getStorageKey(day),
-        JSON.stringify(checkedTasks)
-      );
+    function saveTasks(day, tasks) {
+      try {
+        localStorage.setItem(getStorageKey(day), JSON.stringify(tasks));
+      } catch (error) {
+        console.warn("Não foi possível salvar as tarefas neste navegador.");
+      }
     }
 
     function updateProgress() {
-      const checkboxes = [...taskList.querySelectorAll(
-        'input[type="checkbox"]'
-      )];
+      const checkboxes = [
+        ...taskList.querySelectorAll('input[type="checkbox"]')
+      ];
 
       const completed = checkboxes.filter(box => box.checked).length;
       const total = checkboxes.length;
@@ -669,7 +701,8 @@
         groupElement.appendChild(heading);
 
         group.tasks.forEach((task, taskIndex) => {
-          const taskId = `${day}-${groupIndex}-${taskIndex}`;
+          const taskId = `${groupIndex}-${taskIndex}`;
+
           const label = document.createElement("label");
           label.className = "task";
 
@@ -715,48 +748,23 @@
 
     function setAllTasks(checked) {
       const day = daySelect.value;
-      const checkboxes = [
-        ...taskList.querySelectorAll('input[type="checkbox"]')
-      ];
       const savedTasks = {};
 
-      checkboxes.forEach((checkbox, index) => {
-        checkbox.checked = checked;
-        checkbox.closest(".task").classList.toggle("done", checked);
+      taskList.querySelectorAll(".task-group").forEach(
+        (groupElement, groupIndex) => {
+          groupElement.querySelectorAll(
+            'input[type="checkbox"]'
+          ).forEach((checkbox, taskIndex) => {
+            checkbox.checked = checked;
+            checkbox.closest(".task").classList.toggle("done", checked);
 
-        const groupIndex = Number(
-          checkbox.closest(".task-group")
-            .querySelector("h3") !== null
-            ? checkbox.closest(".task-group")
-                .dataset.groupIndex || 0
-            : 0
-        );
-
-        savedTasks[getTaskIdFromCheckbox(day, checkbox)] = checked;
-      });
+            savedTasks[`${groupIndex}-${taskIndex}`] = checked;
+          });
+        }
+      );
 
       saveTasks(day, savedTasks);
       updateProgress();
-    }
-
-    function getTaskIdFromCheckbox(day, checkbox) {
-      const allGroups = [...taskList.querySelectorAll(".task-group")];
-
-      for (let groupIndex = 0; groupIndex < allGroups.length; groupIndex++) {
-        const boxes = [
-          ...allGroups[groupIndex].querySelectorAll(
-            'input[type="checkbox"]'
-          )
-        ];
-
-        const taskIndex = boxes.indexOf(checkbox);
-
-        if (taskIndex !== -1) {
-          return `${day}-${groupIndex}-${taskIndex}`;
-        }
-      }
-
-      return "";
     }
 
     daySelect.addEventListener("change", () => {
