@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff0f7">
   <title>🌷 Minha Rotina 💗</title>
 
   <style>
@@ -14,6 +15,7 @@
       --border: #f5c5dd;
       --text: #543748;
       --muted: #98798a;
+      --white: #ffffff;
     }
 
     * {
@@ -37,7 +39,7 @@
       text-align: center;
       padding: 28px 16px;
       margin-bottom: 20px;
-      background: white;
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: 24px;
       box-shadow: 0 5px 18px #be397d12;
@@ -55,13 +57,17 @@
       line-height: 1.6;
     }
 
-    .day-selector {
-      padding: 20px;
-      margin-bottom: 18px;
-      background: white;
+    .day-selector,
+    .day-card {
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: 20px;
       box-shadow: 0 5px 18px #be397d0c;
+    }
+
+    .day-selector {
+      padding: 20px;
+      margin-bottom: 18px;
     }
 
     .day-selector label {
@@ -85,10 +91,6 @@
 
     .day-card {
       padding: 20px;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      box-shadow: 0 5px 18px #be397d0c;
     }
 
     .day-heading {
@@ -181,10 +183,17 @@
       color: var(--dark);
       font-weight: 650;
       cursor: pointer;
+      font-size: 14px;
     }
 
     button:hover {
       background: #fce0ee;
+    }
+
+    button:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--dark);
+      outline-offset: 3px;
     }
 
     .progress {
@@ -248,7 +257,7 @@
 
     <header>
       <h1>🌷 Minha Rotina 💗</h1>
-      <p>Uma semana organizada, com tempo para estudar e descansar.</p>
+      <p>Uma semana organizada, com tempo para estudar, dançar e descansar.</p>
     </header>
 
     <section class="day-selector">
@@ -267,7 +276,9 @@
     <section class="day-card">
       <div class="day-heading">
         <h2 id="day-title">Segunda-feira 💕</h2>
-        <span id="today-badge" class="today-badge" hidden>HOJE 💗</span>
+        <span id="today-badge" class="today-badge" hidden>
+          HOJE 💗
+        </span>
       </div>
 
       <div id="tasks"></div>
@@ -277,14 +288,22 @@
           <span>💗 Progresso do dia</span>
           <span id="progress-count">0 de 0 tarefas</span>
         </div>
-        <div class="progress-track">
+        <div
+          class="progress-track"
+          role="progressbar"
+          aria-label="Progresso das tarefas"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          id="progress-track"
+        >
           <div id="progress-fill" class="progress-fill"></div>
         </div>
       </div>
 
       <div class="actions">
-        <button id="mark-all">🌸 Marcar todas</button>
-        <button id="unmark-all">♡ Desmarcar todas</button>
+        <button type="button" id="mark-all">🌸 Marcar todas</button>
+        <button type="button" id="unmark-all">♡ Desmarcar todas</button>
       </div>
     </section>
 
@@ -300,123 +319,156 @@
       {
         day: "Segunda-feira",
         tasks: [
-          ["05:00–05:15", "🛁 Tomar banho"],
-          ["05:15–06:10", "🥣 Café da manhã e se arrumar"],
-          ["06:10–06:30", "🧘 Meditação contra a ansiedade"],
-          ["06:30", "🚌 Sair para pegar o ônibus das 06:34 na Prefeitura"],
-          ["07:10–13:00", "🏫 Escola — bilíngue"],
-          ["13:20–15:00", "🍽️ Almoçar e fazer tarefas domésticas"],
-          ["15:00–15:40", "🎒 Preparar as coisas e sair para o ônibus"],
-          ["16:10–18:00", "📚 Estudar no clube"],
-          ["18:00–20:00", "🏐 Vôlei no SSPMS"],
-          ["20:20–20:25", "🏠 Chegar em casa"],
-          ["20:25–20:40", "🍽️ Jantar"],
-          ["20:40–20:45", "🛁 Banho após o vôlei"],
-          ["20:45–21:00", "🌙 Desacelerar e se preparar para dormir"],
+          ["05:00", "🌅 Acordar"],
+          ["05:00–05:10", "🧽 Arrumar a pia"],
+          ["05:10–05:20", "🛏️ Arrumar o quarto"],
+          ["05:20–05:30", "🐱 Limpar o cocô dos gatos"],
+          ["05:30–05:40", "🎒 Organizar a mochila"],
+          ["05:40–05:55", "🥣 Tomar café da manhã"],
+          ["05:55–06:25", "🪞 Se arrumar para a escola"],
+          ["06:30", "🚌 Sair de casa"],
+          ["07:10–13:00", "🏫 Escola + bilíngue"],
+          ["13:00–13:30", "🏠 Voltar para casa"],
+          ["13:30–14:00", "🍽️ Almoçar"],
+          ["14:00–14:30", "🧹 Arrumar a casa"],
+          ["14:30–15:00", "🛋️ Descansar e preparar as coisas"],
+          ["15:00–15:30", "🎒 Preparar-se para sair"],
+          ["15:30–17:00", "🚶‍♀️💃 Caminhar até a Prefeitura, ensaiar dança e voltar"],
+          ["17:00–18:30", "📚 Estudar para a escola e a ETEC"],
+          ["18:30–19:00", "🍽️ Jantar"],
+          ["19:00–20:00", "📖 Tarefas escolares ou revisão, se necessário"],
+          ["20:00–20:40", "🌷 Tempo livre e higiene"],
+          ["20:40–21:00", "🌙 Preparar-se para dormir"],
           ["21:00", "😴 Dormir"]
         ]
       },
       {
         day: "Terça-feira",
         tasks: [
-          ["05:00–05:15", "🛁 Tomar banho"],
-          ["05:15–06:10", "🥣 Café da manhã e se arrumar"],
-          ["06:10–06:30", "🧘 Meditação contra a ansiedade"],
-          ["06:30", "🚌 Sair para pegar o ônibus das 06:34 na Prefeitura"],
+          ["05:00", "🌅 Acordar"],
+          ["05:00–05:10", "🧽 Arrumar a pia"],
+          ["05:10–05:20", "🛏️ Arrumar o quarto"],
+          ["05:20–05:30", "🐱 Limpar o cocô dos gatos"],
+          ["05:30–05:40", "🎒 Organizar a mochila"],
+          ["05:40–05:55", "🥣 Tomar café da manhã"],
+          ["05:55–06:25", "🪞 Se arrumar para a escola"],
+          ["06:30", "🚌 Sair de casa"],
           ["07:10–12:30", "🏫 Escola"],
-          ["12:30–15:00", "🏠 Chegar em casa, almoçar e descansar"],
-          ["15:00–17:00", "🚶‍♀️🏋️ Caminhada até o SSPMS + academia"],
-          ["17:00–20:00", "📚🍽️ Estudar e jantar"],
-          ["20:00–21:00", "🌙 Desacelerar: ler mangá e beber chá"],
+          ["12:30–13:15", "🏠 Voltar para casa e almoçar"],
+          ["13:15–14:00", "🛋️ Descansar"],
+          ["14:00–15:00", "📚 Estudar para a escola e a ETEC"],
+          ["15:00–15:30", "🎒 Preparar-se para sair"],
+          ["15:30–17:00", "🚶‍♀️💃 Caminhar até a Prefeitura, ensaiar dança e voltar"],
+          ["17:00–18:00", "🧹 Tarefas domésticas ou escolares"],
+          ["18:00–19:00", "📚 Revisar conteúdos, se necessário"],
+          ["19:00–19:30", "🍽️ Jantar"],
+          ["19:30–20:30", "🌷 Tempo livre"],
+          ["20:30–21:00", "🌙 Higiene e preparação para dormir"],
           ["21:00", "😴 Dormir"]
         ]
       },
       {
         day: "Quarta-feira",
         tasks: [
-          ["05:00–05:15", "🛁 Tomar banho"],
-          ["05:15–06:10", "🥣 Café da manhã e se arrumar"],
-          ["06:10–06:30", "🧘 Meditação contra a ansiedade"],
-          ["06:30", "🚌 Sair para pegar o ônibus das 06:34 na Prefeitura"],
+          ["05:00", "🌅 Acordar"],
+          ["05:00–05:10", "🧽 Arrumar a pia"],
+          ["05:10–05:20", "🛏️ Arrumar o quarto"],
+          ["05:20–05:30", "🐱 Limpar o cocô dos gatos"],
+          ["05:30–05:40", "🎒 Organizar a mochila"],
+          ["05:40–05:55", "🥣 Tomar café da manhã"],
+          ["05:55–06:25", "🪞 Se arrumar para a escola"],
+          ["06:30", "🚌 Sair de casa"],
           ["07:10–12:30", "🏫 Escola"],
-          ["12:30–15:00", "🏠 Chegar em casa, almoçar e descansar"],
-          ["15:00–17:00", "🚶‍♀️🏋️ Caminhada até o SSPMS + academia"],
-          ["17:00–20:00", "📚🍽️ Estudar e jantar — prioridade: Matemática"],
-          ["20:00–21:00", "🌙 Desacelerar: ler mangá e beber chá"],
-          ["21:00", "😴 Dormir"]
+          ["12:30–13:15", "🏠 Voltar para casa e almoçar"],
+          ["13:15–14:00", "🛋️ Descansar"],
+          ["14:00–15:30", "📚 Estudar para a escola e a ETEC"],
+          ["15:30–16:30", "🧹 Arrumar a casa e adiantar tarefas"],
+          ["16:30–17:00", "🍎 Fazer um lanche e descansar"],
+          ["17:00–18:00", "🎒 Preparar-se e deslocar-se para a escola de dança"],
+          ["18:00–22:00 aprox.", "💃🩰 Danças urbanas (fixo) + jazz (temporário)"],
+          ["Após a aula", "🏠 Voltar para casa"],
+          ["Ao chegar", "🌙 Higiene e descanso; dormir assim que possível"]
         ]
       },
       {
         day: "Quinta-feira",
         tasks: [
-          ["05:00–05:15", "🛁 Tomar banho"],
-          ["05:15–06:10", "🥣 Café da manhã e se arrumar"],
-          ["06:10–06:30", "🧘 Meditação contra a ansiedade"],
-          ["06:30", "🚌 Sair para pegar o ônibus das 06:34 na Prefeitura"],
-          ["07:10–13:00", "🏫 Escola — conferir o horário quando houver robótica"],
-          ["13:00–15:00", "🏠 Chegar em casa, almoçar e descansar"],
-          ["15:00–16:00", "🧹 Tarefas domésticas"],
-          ["16:00–18:00", "🌸 Descanso e tempo livre"],
-          ["18:00–18:30", "🍽️ Jantar"],
-          ["18:30–20:00", "📚 Estudar, se necessário"],
-          ["20:00–21:00", "🌙 Desacelerar: ler mangá e beber chá"],
+          ["05:00", "🌅 Acordar"],
+          ["05:00–05:10", "🧽 Arrumar a pia"],
+          ["05:10–05:20", "🛏️ Arrumar o quarto"],
+          ["05:20–05:30", "🐱 Limpar o cocô dos gatos"],
+          ["05:30–05:40", "🎒 Organizar a mochila"],
+          ["05:40–05:55", "🥣 Tomar café da manhã"],
+          ["05:55–06:25", "🪞 Se arrumar para a escola"],
+          ["06:30", "🚌 Sair de casa"],
+          ["07:10–13:30", "🏫 Escola + robótica"],
+          ["13:30–14:00", "🏠 Voltar para casa"],
+          ["14:00–14:30", "🍽️ Almoçar"],
+          ["14:30–15:00", "🧹 Arrumar a casa"],
+          ["15:00–15:30", "🎒 Preparar-se para sair"],
+          ["15:30–17:00", "🚶‍♀️💃 Caminhar até a Prefeitura, ensaiar dança e voltar"],
+          ["17:00–18:30", "📚 Estudar para a escola e a ETEC"],
+          ["18:30–19:00", "🍽️ Jantar"],
+          ["19:00–20:00", "📖 Tarefas ou revisão, se necessário"],
+          ["20:00–21:00", "🌷 Tempo livre e preparação para dormir"],
           ["21:00", "😴 Dormir"]
         ]
       },
       {
         day: "Sexta-feira",
         tasks: [
-          ["05:00–05:15", "🛁 Tomar banho"],
-          ["05:15–06:10", "🥣 Café da manhã e se arrumar"],
-          ["06:10–06:30", "🧘 Meditação contra a ansiedade"],
-          ["06:30", "🚌 Sair para pegar o ônibus das 06:34 na Prefeitura"],
+          ["05:00", "🌅 Acordar"],
+          ["05:00–05:10", "🧽 Arrumar a pia"],
+          ["05:10–05:20", "🛏️ Arrumar o quarto"],
+          ["05:20–05:30", "🐱 Limpar o cocô dos gatos"],
+          ["05:30–05:40", "🎒 Organizar a mochila"],
+          ["05:40–05:55", "🥣 Tomar café da manhã"],
+          ["05:55–06:25", "🪞 Se arrumar para a escola"],
+          ["06:30", "🚌 Sair de casa"],
           ["07:10–12:30", "🏫 Escola"],
-          ["12:30–15:00", "🏠 Chegar em casa, almoçar e descansar"],
-          ["15:00–17:00", "🚶‍♀️🏋️ Caminhada até o SSPMS + academia"],
-          ["17:00–20:00", "📚🍽️ Estudar e jantar"],
-          ["20:00–21:00", "🌙 Desacelerar: ler mangá e beber chá"],
-          ["21:00", "😴 Dormir"]
+          ["12:30–13:15", "🏠 Voltar para casa e almoçar"],
+          ["13:15–14:30", "🧹 Arrumar a casa"],
+          ["14:30–16:00", "📚 Estudar para a escola e a ETEC"],
+          ["A partir das 16:00", "💗 Tempo livre: fazer o que quiser!"],
+          ["À noite", "🌙 Descansar e manter um horário de sono confortável"]
         ]
       },
       {
         day: "Sábado",
         tasks: [
-          ["07:00–07:15", "🛁 Tomar banho"],
-          ["07:15–08:00", "🥣 Café da manhã"],
-          ["08:00–09:00", "🧹 Organizar a casa"],
-          ["09:00–10:00", "📚 Estudar, se necessário"],
+          ["07:00", "🌅 Acordar no seu ritmo"],
+          ["07:00–08:00", "🥣 Higiene e café da manhã"],
+          ["08:00–09:00", "🧹 Organizar a casa, se necessário"],
+          ["09:00–10:00", "📚 Estudar, se houver tarefas pendentes"],
           ["10:00–12:00", "🎨 Tempo livre"],
           ["12:00–13:00", "🍽️ Almoço"],
-          ["13:00–15:00", "💗 Descanso e lazer"],
-          ["15:00–17:00", "🌷 Tempo livre"],
-          ["17:00–18:00", "🗓️ Organizar as coisas para a semana"],
+          ["13:00–17:00", "💗 Lazer e descanso"],
+          ["17:00–18:00", "🗓️ Organizar a próxima semana, se necessário"],
           ["18:00–18:30", "🍽️ Jantar"],
-          ["18:30–20:00", "💗 Lazer e descanso"],
-          ["20:00–21:30", "🌙 Desacelerar: ler mangá e beber chá"],
-          ["21:30", "😴 Dormir"]
+          ["Após o jantar", "🌷 Tempo livre e descanso"]
         ]
       },
       {
         day: "Domingo",
         tasks: [
-          ["07:00–07:15", "🛁 Tomar banho"],
-          ["07:15–08:00", "🥣 Café da manhã"],
-          ["08:00–09:00", "🗓️ Organizar a semana"],
-          ["09:00–11:00", "📚 Estudar e revisar conteúdos"],
-          ["11:00–12:00", "💗 Tempo livre"],
+          ["07:00", "🌅 Acordar no seu ritmo"],
+          ["07:00–08:00", "🥣 Higiene e café da manhã"],
+          ["08:00–09:00", "🗓️ Organizar a semana, se necessário"],
+          ["09:00–10:30", "📚 Revisar conteúdos, se houver necessidade"],
+          ["10:30–12:00", "💗 Tempo livre"],
           ["12:00–13:00", "🍽️ Almoço"],
           ["13:00–15:00", "🛋️ Descansar"],
           ["15:00–16:00", "🎒 Preparar mochila e uniforme"],
           ["16:00–18:00", "🌸 Tempo livre"],
           ["18:00–18:30", "🍽️ Jantar"],
-          ["18:30–20:00", "📚 Revisar, se necessário"],
-          ["20:00–21:00", "🌙 Desacelerar: ler mangá e beber chá"],
-          ["21:00", "😴 Dormir"]
+          ["18:30–20:00", "📖 Revisar para a escola, se necessário"],
+          ["20:00–21:00", "🌙 Desacelerar e preparar-se para dormir"],
+          ["21:00", "😴 Dormir, se esse horário funcionar para você"]
         ]
       }
     ];
 
-    // A semana começa na segunda-feira.
+    // Calcula a semana atual, começando na segunda-feira.
     function getWeekKey(date = new Date()) {
       const d = new Date(Date.UTC(
         date.getFullYear(),
@@ -437,32 +489,49 @@
 
     const storageKey = `rotina-checkbox-${getWeekKey()}`;
     const todayIndex = (new Date().getDay() + 6) % 7;
+
     const daySelect = document.getElementById("day-select");
     const tasksContainer = document.getElementById("tasks");
     const dayTitle = document.getElementById("day-title");
     const todayBadge = document.getElementById("today-badge");
     const progressCount = document.getElementById("progress-count");
     const progressFill = document.getElementById("progress-fill");
+    const progressTrack = document.getElementById("progress-track");
 
     let completed = {};
 
+    // Se o navegador bloquear o armazenamento, a rotina ainda funciona.
     try {
       completed = JSON.parse(localStorage.getItem(storageKey) || "{}");
+
+      if (
+        !completed ||
+        typeof completed !== "object" ||
+        Array.isArray(completed)
+      ) {
+        completed = {};
+      }
     } catch {
       completed = {};
     }
 
     function save() {
-      localStorage.setItem(storageKey, JSON.stringify(completed));
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(completed));
+      } catch {
+        // As tarefas continuam funcionando durante a sessão.
+      }
     }
 
     function renderDay() {
       const dayIndex = Number(daySelect.value);
       const day = routine[dayIndex];
 
+      if (!day) return;
+
       dayTitle.textContent = `${day.day} 💕`;
       todayBadge.hidden = dayIndex !== todayIndex;
-      tasksContainer.innerHTML = "";
+      tasksContainer.replaceChildren();
 
       day.tasks.forEach((task, taskIndex) => {
         const id = `${dayIndex}-${taskIndex}`;
@@ -473,6 +542,7 @@
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = Boolean(completed[id]);
+        checkbox.setAttribute("aria-label", task[1]);
 
         const content = document.createElement("span");
         content.className = "task-content";
@@ -507,8 +577,11 @@
         return count + (completed[`${dayIndex}-${i}`] ? 1 : 0);
       }, 0);
 
+      const percentage = total ? (done / total) * 100 : 0;
+
       progressCount.textContent = `${done} de ${total} tarefas`;
-      progressFill.style.width = `${total ? (done / total) * 100 : 0}%`;
+      progressFill.style.width = `${percentage}%`;
+      progressTrack.setAttribute("aria-valuenow", String(Math.round(percentage)));
     }
 
     document.getElementById("mark-all").addEventListener("click", () => {
